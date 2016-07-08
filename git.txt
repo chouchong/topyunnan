@@ -1,0 +1,6 @@
+echo "# topyunnan" >> README.md
+git init
+git add .
+git commit -m "µÚÒ»Ìì"
+git remote add origin https://github.com/chouchong/topyunnan.git
+git push -u origin master
