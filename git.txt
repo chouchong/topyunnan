@@ -4,3 +4,7 @@ git add .
 git commit -m "第一天"
 git remote add origin https://github.com/chouchong/topyunnan.git
 git push -u origin master
+
+git add .
+git commit -m "第一天1"
+git push -u origin master
