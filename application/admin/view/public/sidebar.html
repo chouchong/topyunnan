@@ -9,40 +9,27 @@
     <!-- 控制面板 -->
     <ul class="nav sidebar-menu">
         <!--Dashboard-->
-        <li class="active">
-            <a href="/admin">
-                <i class="menu-icon glyphicon glyphicon-home"></i>
-                <span class="menu-text"> 控制面板 </span>
-            </a>
-        </li>
-        <!--权限管理-->
-        <li>
-            <a href="#" class="menu-dropdown">
-                <i class="menu-icon fa fa-cogs"></i>
-                <span class="menu-text"> 权限管理 </span>
+        {volist name="navBar" id="vo"}
+        <li {if $pid == $vo['id']}class="open"{/if}{if $uri == $vo['name']}class="active"{/if}>
+            <a href='{if !empty($vo["name"])}{:url($vo["name"])}{else}#{/if}' class="menu-dropdown">
+                <i class="menu-icon {$vo['title']}"></i>
+                <span class="menu-text">{$vo['title']} </span>
                 <i class="menu-expand"></i>
             </a>
+            {if condition="isset($vo['sub']) && !empty($vo['sub'])"}
             <ul class="submenu">
-                <li>
-                    <a href="elements.html">
-                        <i class="menu-icon fa fa-user"></i>
-                        <span class="menu-text"> 管理员列表 </span>
+                {volist name="vo['sub']" id="v"}
+                <li {if $uri == $v['name']}class="active"{/if}>
+                    <a href="{:url($v['name'])}">
+                        <i class="menu-icon {$v.icon}"></i>
+                        <span class="menu-text"> {$v['title']} </span>
                     </a>
                 </li>
-                <li>
-                    <a href="tabs.html">
-                        <i class="menu-icon fa  fa-group"></i>
-                        <span class="menu-text">角色列表</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{:url('admin/rule/index')}">
-                        <i class="menu-icon fa fa-cogs"></i>
-                        <span class="menu-text">权限列表</span>
-                    </a>
-                </li>
+                {/volist}
             </ul>
+            {/if}
         </li>
+        {/volist}
     </ul>
     <!-- /Sidebar Menu -->
 </div>

@@ -27,7 +27,7 @@ CREATE TABLE `role` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of role
@@ -49,78 +49,6 @@ CREATE TABLE `role_rule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限关联表';
 
 -- ----------------------------
--- Records of role_rule
--- ----------------------------
-INSERT INTO `role_rule` VALUES ('1', '1');
-INSERT INTO `role_rule` VALUES ('2', '1');
-INSERT INTO `role_rule` VALUES ('1', '2');
-INSERT INTO `role_rule` VALUES ('2', '2');
-INSERT INTO `role_rule` VALUES ('1', '3');
-INSERT INTO `role_rule` VALUES ('1', '4');
-INSERT INTO `role_rule` VALUES ('1', '5');
-INSERT INTO `role_rule` VALUES ('1', '6');
-INSERT INTO `role_rule` VALUES ('1', '7');
-INSERT INTO `role_rule` VALUES ('1', '8');
-INSERT INTO `role_rule` VALUES ('1', '9');
-INSERT INTO `role_rule` VALUES ('1', '13');
-INSERT INTO `role_rule` VALUES ('2', '13');
-INSERT INTO `role_rule` VALUES ('1', '14');
-INSERT INTO `role_rule` VALUES ('1', '15');
-INSERT INTO `role_rule` VALUES ('1', '16');
-INSERT INTO `role_rule` VALUES ('1', '17');
-INSERT INTO `role_rule` VALUES ('1', '18');
-INSERT INTO `role_rule` VALUES ('1', '19');
-INSERT INTO `role_rule` VALUES ('1', '20');
-INSERT INTO `role_rule` VALUES ('1', '21');
-INSERT INTO `role_rule` VALUES ('2', '21');
-INSERT INTO `role_rule` VALUES ('1', '22');
-INSERT INTO `role_rule` VALUES ('2', '22');
-INSERT INTO `role_rule` VALUES ('1', '23');
-INSERT INTO `role_rule` VALUES ('2', '23');
-INSERT INTO `role_rule` VALUES ('1', '24');
-INSERT INTO `role_rule` VALUES ('2', '24');
-INSERT INTO `role_rule` VALUES ('1', '25');
-INSERT INTO `role_rule` VALUES ('2', '25');
-INSERT INTO `role_rule` VALUES ('1', '26');
-INSERT INTO `role_rule` VALUES ('2', '26');
-INSERT INTO `role_rule` VALUES ('1', '27');
-INSERT INTO `role_rule` VALUES ('2', '27');
-INSERT INTO `role_rule` VALUES ('1', '28');
-INSERT INTO `role_rule` VALUES ('2', '28');
-INSERT INTO `role_rule` VALUES ('1', '29');
-INSERT INTO `role_rule` VALUES ('2', '29');
-INSERT INTO `role_rule` VALUES ('1', '30');
-INSERT INTO `role_rule` VALUES ('2', '30');
-INSERT INTO `role_rule` VALUES ('1', '31');
-INSERT INTO `role_rule` VALUES ('2', '31');
-INSERT INTO `role_rule` VALUES ('1', '32');
-INSERT INTO `role_rule` VALUES ('1', '33');
-INSERT INTO `role_rule` VALUES ('1', '34');
-INSERT INTO `role_rule` VALUES ('1', '35');
-INSERT INTO `role_rule` VALUES ('1', '36');
-INSERT INTO `role_rule` VALUES ('1', '37');
-INSERT INTO `role_rule` VALUES ('1', '38');
-INSERT INTO `role_rule` VALUES ('1', '39');
-INSERT INTO `role_rule` VALUES ('1', '40');
-INSERT INTO `role_rule` VALUES ('1', '41');
-INSERT INTO `role_rule` VALUES ('1', '42');
-INSERT INTO `role_rule` VALUES ('1', '43');
-INSERT INTO `role_rule` VALUES ('1', '44');
-INSERT INTO `role_rule` VALUES ('2', '44');
-INSERT INTO `role_rule` VALUES ('1', '45');
-INSERT INTO `role_rule` VALUES ('1', '46');
-INSERT INTO `role_rule` VALUES ('1', '47');
-INSERT INTO `role_rule` VALUES ('1', '48');
-INSERT INTO `role_rule` VALUES ('1', '49');
-INSERT INTO `role_rule` VALUES ('1', '50');
-INSERT INTO `role_rule` VALUES ('1', '51');
-INSERT INTO `role_rule` VALUES ('1', '52');
-INSERT INTO `role_rule` VALUES ('1', '53');
-INSERT INTO `role_rule` VALUES ('1', '54');
-INSERT INTO `role_rule` VALUES ('1', '55');
-INSERT INTO `role_rule` VALUES ('1', '56');
-
--- ----------------------------
 -- Table structure for rule
 -- ----------------------------
 DROP TABLE IF EXISTS `rule`;
@@ -134,64 +62,7 @@ CREATE TABLE `rule` (
   `sort` int(3) NOT NULL DEFAULT '255' COMMENT '排序',
   PRIMARY KEY (`id`),
   UNIQUE KEY `rulename` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单表';
-
--- ----------------------------
--- Records of rule
--- ----------------------------
-INSERT INTO `rule` VALUES ('1', '0', 'index/main', '主界面', 'glyphicon glyphicon-home', '1', '0');
-INSERT INTO `rule` VALUES ('2', '0', 'role', '用户组权限管理', 'fa fa-users', '1', '1');
-INSERT INTO `rule` VALUES ('3', '2', 'rule/index', '菜单管理', 'fa fa-th', '1', '2');
-INSERT INTO `rule` VALUES ('4', '3', 'rule/add', '添加菜单', '', '0', '255');
-INSERT INTO `rule` VALUES ('5', '3', 'rule/edit', '修改菜单', '', '0', '22');
-INSERT INTO `rule` VALUES ('6', '3', 'rule/destroy', '菜单删除', '', '0', '255');
-INSERT INTO `rule` VALUES ('7', '2', 'Role/index', '用户组管理', 'fa fa-users', '1', '255');
-INSERT INTO `rule` VALUES ('8', '7', 'role/add', '添加用户组', '', '0', '255');
-INSERT INTO `rule` VALUES ('9', '7', 'role/edit', '修改用户组', '', '0', '12');
-INSERT INTO `rule` VALUES ('13', '0', 'profile', '个人中心', 'fa fa-user-secret', '1', '255');
-INSERT INTO `rule` VALUES ('14', '13', 'personal/profile', '个人资料', 'fa fa-user-plus', '1', '255');
-INSERT INTO `rule` VALUES ('15', '13', 'index/logout', '退出', 'fa fa-sign-out', '1', '255');
-INSERT INTO `rule` VALUES ('16', '7', 'role/destroy', '删除用户组', '', '0', '255');
-INSERT INTO `rule` VALUES ('17', '2', 'user/index', '后台用户管理', 'fa fa-user', '1', '255');
-INSERT INTO `rule` VALUES ('18', '17', 'user/add', '添加后台用户', '', '0', '255');
-INSERT INTO `rule` VALUES ('19', '17', 'user/edit', '修改后台用户', '', '0', '255');
-INSERT INTO `rule` VALUES ('20', '17', 'user/destroy', '删除后台用户', '', '0', '255');
-INSERT INTO `rule` VALUES ('21', '0', 'system', '系统设置', 'fa fa-cog', '1', '2');
-INSERT INTO `rule` VALUES ('22', '21', 'databases/index', '数据库备份', 'fa fa-database', '1', '255');
-INSERT INTO `rule` VALUES ('23', '22', 'databases/optimize', '优化表', '', '0', '255');
-INSERT INTO `rule` VALUES ('24', '22', 'databases/repair', '数据修复', '', '0', '255');
-INSERT INTO `rule` VALUES ('25', '22', 'databases/backup', '备份表', '', '0', '255');
-INSERT INTO `rule` VALUES ('26', '21', 'variable/index', '自定义变量', 'fa fa-superscript', '1', '255');
-INSERT INTO `rule` VALUES ('27', '26', 'variable/add', '添加变量', '', '0', '255');
-INSERT INTO `rule` VALUES ('28', '26', 'variable/edit', '修改变量', '', '0', '255');
-INSERT INTO `rule` VALUES ('29', '26', 'variable/set', '修改变量值', '', '0', '255');
-INSERT INTO `rule` VALUES ('30', '26', 'upload/uploadpic', '编辑器上传', '', '0', '255');
-INSERT INTO `rule` VALUES ('31', '0', 'other', '其他功能管理', 'fa fa-instagram', '1', '10');
-INSERT INTO `rule` VALUES ('32', '31', 'links/index', '友情链接管理', 'fa fa-link', '1', '255');
-INSERT INTO `rule` VALUES ('33', '32', 'links/add', '添加友情链接', '', '0', '255');
-INSERT INTO `rule` VALUES ('34', '32', 'links/edit', '修改友情链接', '', '0', '255');
-INSERT INTO `rule` VALUES ('35', '32', 'links/destroy', '删除友情链接', '', '0', '255');
-INSERT INTO `rule` VALUES ('36', '31', 'focusposition/index', '焦点图位置', 'fa fa-play-circle', '1', '255');
-INSERT INTO `rule` VALUES ('37', '36', 'focusposition/add', '添加焦点图位置', '', '0', '255');
-INSERT INTO `rule` VALUES ('38', '36', 'focusposition/edit', '修改焦点图位置', '', '0', '255');
-INSERT INTO `rule` VALUES ('39', '36', 'focusposition/destroy', '删除焦点图位置', '', '0', '255');
-INSERT INTO `rule` VALUES ('40', '31', 'focus/index', '焦点图', 'fa fa-money', '1', '255');
-INSERT INTO `rule` VALUES ('41', '40', 'focus/add', '添加焦点图', '', '0', '255');
-INSERT INTO `rule` VALUES ('42', '40', 'focus/edit', '修改焦点图', '', '0', '255');
-INSERT INTO `rule` VALUES ('43', '40', 'focus/destroy', '删除焦点图', '', '0', '255');
-INSERT INTO `rule` VALUES ('44', '0', 'content', '内容管理', 'fa fa-newspaper-o', '1', '3');
-INSERT INTO `rule` VALUES ('45', '44', 'page/index', '单页面管理', 'fa fa-pagelines', '1', '255');
-INSERT INTO `rule` VALUES ('46', '45', 'page/add', '添加单页面', '', '0', '255');
-INSERT INTO `rule` VALUES ('47', '45', 'page/edit', '修改单页面', '', '0', '255');
-INSERT INTO `rule` VALUES ('48', '45', 'page/destroy', '删除单页面', '', '0', '255');
-INSERT INTO `rule` VALUES ('49', '44', 'ariclecategory/index', '分类管理', 'fa fa-certificate', '1', '255');
-INSERT INTO `rule` VALUES ('50', '49', 'ariclecategory/add', '添加文章分类', '', '0', '255');
-INSERT INTO `rule` VALUES ('51', '49', 'ariclecategory/edit', '修改文章分类', '', '0', '255');
-INSERT INTO `rule` VALUES ('52', '49', 'ariclecategory/destroy', '删除文章分类', '', '0', '255');
-INSERT INTO `rule` VALUES ('53', '44', 'aricle/index', '文章管理', 'fa fa-book', '1', '255');
-INSERT INTO `rule` VALUES ('54', '53', 'aricle/add', '添加文章', '', '0', '255');
-INSERT INTO `rule` VALUES ('55', '53', 'aricle/edit', '修改文章', '', '0', '255');
-INSERT INTO `rule` VALUES ('56', '53', 'aricle/destroy', '删除文章', '', '0', '255');
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单表';
 
 -- ----------------------------
 -- Table structure for user

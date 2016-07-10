@@ -8,3 +8,7 @@ git push -u origin master
 git add .
 git commit -m "第一天1"
 git push -u origin master
+
+git add .
+git commit -m "第一天2"
+git push -u origin master

@@ -20,7 +20,7 @@
     <div class="login-container animated fadeInDown" id="authLogin">
         <validator name="signinValidation">
         <form novalidate>
-          <div class="loginbox bg-white">
+          <div class="loginbox bg-white" style="height: 250px!important;">
             <div class="loginbox-title">登录</div>
             <div class="loginbox-social">
                 <div class="social-title ">联系你的社交账户</div>
@@ -49,7 +49,9 @@
     </div>
     <!--Basic Scripts-->
     {include file="public/script" /}
+    {include file="public/modal" /}
     <script>
+        "use strict";
         var vm = new Vue({
           el: '#authLogin',
           data: {
@@ -66,7 +68,11 @@
                     data: this.user,
                     success: function(data) {
                         if(data.status>0){
-                            window.location.href = '/Admin/Index/index'
+                            $('#modal-success').modal('show');
+                            $(".modal-body").html("登陆成功");
+                            setTimeout(function(){
+                                window.location.href = '/Admin/Index/index'
+                            },3*1000);   
                         }else{
                             vm.$set('msg',data.msg)
                         }

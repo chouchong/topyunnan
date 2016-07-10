@@ -3,8 +3,13 @@ namespace app\admin\controller;
 
 use \think\Config;
 use \think\Controller;
+use \think\Db;
+use \think\Request;
+use \think\Session;
+use \think\Loader;
 
-class Base extends Controller{
+class Base extends Controller
+{
 
 	public function __construct()
 	{
@@ -17,8 +22,11 @@ class Base extends Controller{
 		$action = $this->request->action();
 
 		$activeRouter = $module.'/'.$controller.'/'.$action;
-
+		$resource = Db::name('rule')->field('id,name,title,parent_id')->where('name',$activeRouter)->find();
 		$this->assign('uri', $activeRouter);
+		$this->assign('pid', $resource['parent_id']);
+		$this->assign('userInfo', session('userInfo.username'));
+		$this->getBreadcrumb();
 	}
 
 	/**
@@ -27,9 +35,17 @@ class Base extends Controller{
 	 */
 	public function isUser()
 	{
-		if(session('user.id') == null){
+		if(session('userInfo.id') == null){
 			$this->redirect(url('/login'));
 		}
 	}
-
+	/**
+     * 获取当前位置
+     * @author chouchong
+     */
+    protected function getBreadcrumb()
+    {
+        $ruleData = Loader::model('Rule')->getMenusByRoleId(session('userInfo.rid'));
+        $this->assign('navBar', $ruleData);
+    }
 }

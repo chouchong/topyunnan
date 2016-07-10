@@ -3,6 +3,8 @@ namespace app\admin\controller;
 
 use \think\Loader;
 use \think\Request;
+use \think\Session;
+use \think\Config;
 
 class Common
 {
@@ -12,6 +14,7 @@ class Common
 	 */
 	public function login()
 	{
+		// Config::set('default_return_type','json');
 		$request = Request::instance();
 		if($request->isPOST())
 		{
@@ -29,6 +32,16 @@ class Common
 		}else{
 			return view('auth/login');
 		}
+	}
+	/**
+	 * 用户提出
+	 * @author chouchong
+	 */
+	public function logout()
+	{
+		// Config::set('default_return_type','json');
+		Session::delete('userInfo');
+		return ['status' => 1];
 	}
 }
 ?>

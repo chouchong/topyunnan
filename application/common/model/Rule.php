@@ -11,21 +11,12 @@ class Rule extends Model
 {
     protected $autoWriteTimestamp = false;
 
-    protected $type = [
-        'id'        => 'integer',
-        'parent_id' => 'integer',
-        'islink'    => 'integer',
-        'sort'      => 'integer',
-    ];
-
     // 定义自动完成的属性
     protected $auto = ['sort', 'islink'];
 
     /**
      * [user description]
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-20T14:36:59+0800
-     * @return   [type]                   [description]
+     * @author chouchong
      */
     public function parent()
     {
@@ -34,10 +25,7 @@ class Rule extends Model
 
     /**
      * 获取状态
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-04-19T16:00:40+0800
-     * @param    string                   $value [description]
-     * @return   [type]                          [description]
+     * @author chouchong
      */
     public function getIslinkAttr($islink, $data)
     {
@@ -47,9 +35,7 @@ class Rule extends Model
 
     /**
      * 获取图标
-     * @param  [type] $islink [description]
-     * @param  [type] $data   [description]
-     * @return [type]         [description]
+     * @author  chouchong
      */
     public function getIconAttr($islink, $data)
     {
@@ -58,9 +44,7 @@ class Rule extends Model
 
     /**
      * 获取排序
-     * @param  [type] $sort [description]
-     * @param  [type] $data [description]
-     * @return [type]       [description]
+     * @author  chouchong
      */
     public function getSortAttr($sort, $data)
     {
@@ -69,10 +53,7 @@ class Rule extends Model
 
     /**
      * 获取用户组所有的权限
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-19T17:11:06+0800
-     * @param    [type]                   $roleId [description]
-     * @return   [type]                           [description]
+     * @author  chouchong
      */
     public function getRulesByRoleId($roleId)
     {
@@ -87,9 +68,7 @@ class Rule extends Model
 
     /**
      * 检查权限
-     * @param  integer $roleId [description]
-     * @param  [type]  $name   [description]
-     * @return [type]          [description]
+     * @author  chouchong
      */
     public function checkRule($roleId = 0, $name = '')
     {
@@ -122,10 +101,7 @@ class Rule extends Model
 
     /**
      * 通过用户组获取菜单
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-17T15:53:58+0800
-     * @param    string                   $roleId 用户组ID
-     * @return   [type]                          [description]
+     * @author chouchong
      */
     public function getMenusByRoleId($roleId)
     {
@@ -160,9 +136,7 @@ class Rule extends Model
 
     /**
      * 获取权限
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-19T12:36:05+0800
-     * @param    string                   $value [description]
+     * @author  chouchong
      */
     public function getAllRule()
     {
@@ -177,10 +151,7 @@ class Rule extends Model
 
     /**
      * 通过parent_id获取菜单
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-17T16:36:34+0800
-     * @param    integer                  $parentId [description]
-     * @return   [type]                             [description]
+     * @author  chouchong
      */
     public function getMenusByParentId($parentId = 0, $islink = true)
     {
@@ -196,10 +167,7 @@ class Rule extends Model
 
     /**
      * [deleteRole description]
-     * @author luffy<luffyzhao@vip.126.com>
-     * @dateTime 2016-05-20T15:03:31+0800
-     * @param    [type]                   $id [description]
-     * @return   [type]                       [description]
+     * @author  chouchong
      */
     public function deleteRule($id)
     {

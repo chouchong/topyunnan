@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:7:{s:69:"D:\phpStudy\WWW\tp5\public/../application/admin\view\index\index.html";i:1467972553;s:67:"D:\phpStudy\WWW\tp5\public/../application/admin\view\base\base.html";i:1467972496;s:70:"D:\phpStudy\WWW\tp5\public/../application/admin\view\public\style.html";i:1467969716;s:72:"D:\phpStudy\WWW\tp5\public/../application/admin\view\public\loading.html";i:1467970314;s:68:"D:\phpStudy\WWW\tp5\public/../application/admin\view\public\nav.html";i:1467972166;s:72:"D:\phpStudy\WWW\tp5\public/../application/admin\view\public\sidebar.html";i:1467975451;s:71:"D:\phpStudy\WWW\tp5\public/../application/admin\view\public\script.html";i:1467969828;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:66:"E:\www\topyunnan\public/../application/admin\view\index\index.html";i:1467978751;s:64:"E:\www\topyunnan\public/../application/admin\view\base\base.html";i:1468041277;s:67:"E:\www\topyunnan\public/../application/admin\view\public\style.html";i:1467991494;s:69:"E:\www\topyunnan\public/../application/admin\view\public\loading.html";i:1467978751;s:65:"E:\www\topyunnan\public/../application/admin\view\public\nav.html";i:1467991973;s:69:"E:\www\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468049460;s:68:"E:\www\topyunnan\public/../application/admin\view\public\script.html";i:1467991488;s:67:"E:\www\topyunnan\public/../application/admin\view\public\modal.html";i:1468043098;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,6 +30,9 @@
 
 <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
 <script src="/assets/js/skins.min.js"></script>
+<script src="/assets/js/jquery-2.0.3.min.js"></script>
+<script src="/assets/js/bootbox/bootbox.js"></script>
+
     
 </head>
 <!-- /Head -->
@@ -86,20 +89,19 @@
                                     <img src="/assets/img/avatars/adam-jansen.jpg">
                                 </div>
                                 <section>
-                                    <h2><span class="profile"><span>David Stevenson</span></span></h2>
+                                    <h2><span class="profile"><span><?php echo $userInfo; ?></span></span></h2>
                                 </section>
                             </a>
                             <!--Login Area Dropdown-->
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
                                 <!--Avatar Area-->
                                 <li class="edit">
-                                    <a href="profile.html" class="pull-left">Profile</a>
-                                    <a href="#" class="pull-right">Setting</a>
+                                    <a href="#" class="pull-right">用户设置</a>
                                 </li>
                                 <!--/Theme Selector Area-->
-                                <li class="dropdown-footer">
-                                    <a href="login.html">
-                                        Sign out
+                                <li class="dropdown-footer" id="bootbox-confirm" style="cursor: pointer;">
+                                    <a>
+                                        退 出
                                     </a>
                                 </li>
                             </ul>
@@ -113,8 +115,7 @@
                     </div>
                     <div class="setting-container">
                         <label>
-                            <input type="checkbox" id="checkbox_fixednavbar">
-                            <span class="text">Fixed Navbar</span>
+                            <a class="dropdown-footer"><span class="text" style="color: #fff;">退 出</span></a>
                         </label>
                     </div>
                     <!-- Settings -->
@@ -124,6 +125,35 @@
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+        "use strict";
+        $(".dropdown-footer").on('click', function () {
+            bootbox.confirm("是否确定退出", function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/admin/common/logout',
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data) {
+                            if(data.status>0){
+                                window.location.href = '/login.html';
+                            }else{
+
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    })
+</script>
     <!-- /Navbar -->
     <!-- Main Container -->
     <div class="main-container container-fluid">
@@ -141,40 +171,27 @@
     <!-- 控制面板 -->
     <ul class="nav sidebar-menu">
         <!--Dashboard-->
-        <li class="active">
-            <a href="/admin">
-                <i class="menu-icon glyphicon glyphicon-home"></i>
-                <span class="menu-text"> 控制面板 </span>
-            </a>
-        </li>
-        <!--权限管理-->
-        <li>
-            <a href="#" class="menu-dropdown">
-                <i class="menu-icon fa fa-cogs"></i>
-                <span class="menu-text"> 权限管理 </span>
+        <?php if(is_array($navBar) || $navBar instanceof \think\Collection): $i = 0; $__LIST__ = $navBar;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+        <li <?php if($pid == $vo['id']): ?>class="open"<?php endif; if($uri == $vo['name']): ?>class="active"<?php endif; ?>>
+            <a href='<?php if(!empty($vo["name"])): ?><?php echo url($vo["name"]); else: ?>#<?php endif; ?>' class="menu-dropdown">
+                <i class="menu-icon <?php echo $vo['title']; ?>"></i>
+                <span class="menu-text"><?php echo $vo['title']; ?> </span>
                 <i class="menu-expand"></i>
             </a>
+            <?php if(isset($vo['sub']) && !empty($vo['sub'])): ?>
             <ul class="submenu">
-                <li>
-                    <a href="elements.html">
-                        <i class="menu-icon fa fa-user"></i>
-                        <span class="menu-text"> 管理员列表 </span>
+                <?php if(is_array($vo['sub']) || $vo['sub'] instanceof \think\Collection): $i = 0; $__LIST__ = $vo['sub'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
+                <li <?php if($uri == $v['name']): ?>class="active"<?php endif; ?>>
+                    <a href="<?php echo url($v['name']); ?>">
+                        <i class="menu-icon <?php echo $v['icon']; ?>"></i>
+                        <span class="menu-text"> <?php echo $v['title']; ?> </span>
                     </a>
                 </li>
-                <li>
-                    <a href="tabs.html">
-                        <i class="menu-icon fa  fa-group"></i>
-                        <span class="menu-text">角色列表</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo url('admin/rule/index'); ?>">
-                        <i class="menu-icon fa fa-cogs"></i>
-                        <span class="menu-text">权限列表</span>
-                    </a>
-                </li>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </ul>
+            <?php endif; ?>
         </li>
+        <?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
     <!-- /Sidebar Menu -->
 </div>
@@ -1069,11 +1086,10 @@
 
     <!--Basic Scripts-->
     <!--Basic Scripts-->
-<script src="/assets/js/jquery-2.0.3.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 
 <!--Beyond Scripts-->
-<script src="/assets/js/beyond.min.js"></script>
+<script src="/assets/js/beyond.js"></script>
 
 
 <!--Page Related Scripts-->
@@ -1096,6 +1112,23 @@
 <script src="/assets/vue/vue.js"></script>
 <script src="/assets/vue/vue-validator.js"></script>
 <script src="/assets/vue/vue-resource.min.js"></script>
+    <!--Success Modal Templates-->
+<div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="glyphicon glyphicon-check"></i>
+            </div>
+            <div class="modal-title">Success</div>
+
+            <div class="modal-body">You have done great!</div>
+            <div class="modal-footer">
+               <!--  <button type="button" class="btn btn-success" data-dismiss="modal">OK</button> -->
+            </div>
+        </div> <!-- / .modal-content -->
+    </div> <!-- / .modal-dialog -->
+</div>
+<!--End Success Modal Templates-->
     
 </body>
 <!--  /Body -->

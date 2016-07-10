@@ -6,7 +6,7 @@
 
 // @see https://github.com/makeusabrew/bootbox/issues/180
 // @see https://github.com/makeusabrew/bootbox/issues/186
-(function (root, factory) {
+(function(root, factory) {
 
   "use strict";
   if (typeof define === "function" && define.amd) {
@@ -28,43 +28,29 @@
 
   // the base DOM structure needed to create a modal
   var templates = {
-    dialog:
-    "<div class='bootbox modal' tabindex='-1' role='dialog' aria-hidden='true'>" +
-    "<div class='modal-dialog'>" +
-    "<div class='modal-content'>" +
-    "<div class='modal-body'><div class='bootbox-body'></div></div>" +
-    "</div>" +
-    "</div>" +
-    "</div>",
-    header:
-    "<div class='modal-header'>" +
-    "<h4 class='modal-title'></h4>" +
-    "</div>",
-    footer:
-        "<div class='modal-footer'></div>",
-    closeButton:
-        "<button type='button' class='bootbox-close-button close' data-dismiss='modal' aria-hidden='true'>&times;</button>",
-    form:
-        "<form class='bootbox-form'></form>",
+    dialog: "<div class='bootbox modal' tabindex='-1' role='dialog' aria-hidden='true'>" +
+      "<div class='modal-dialog'>" +
+      "<div class='modal-content'>" +
+      "<div class='modal-body'><div class='bootbox-body'></div></div>" +
+      "</div>" +
+      "</div>" +
+      "</div>",
+    header: "<div class='modal-header'>" +
+      "<h4 class='modal-title'></h4>" +
+      "</div>",
+    footer: "<div class='modal-footer'></div>",
+    closeButton: "<button type='button' class='bootbox-close-button close' data-dismiss='modal' aria-hidden='true'>&times;</button>",
+    form: "<form class='bootbox-form'></form>",
     inputs: {
-      text:
-          "<input class='bootbox-input bootbox-input-text form-control' autocomplete=off type=text />",
-      textarea:
-          "<textarea class='bootbox-input bootbox-input-textarea form-control'></textarea>",
-      email:
-          "<input class='bootbox-input bootbox-input-email form-control' autocomplete='off' type='email' />",
-      select:
-          "<select class='bootbox-input bootbox-input-select form-control'></select>",
-      checkbox:
-          "<div class='checkbox'><label><input class='bootbox-input bootbox-input-checkbox' type='checkbox' /></label></div>",
-      date:
-          "<input class='bootbox-input bootbox-input-date form-control' autocomplete=off type='date' />",
-      time:
-          "<input class='bootbox-input bootbox-input-time form-control' autocomplete=off type='time' />",
-      number:
-          "<input class='bootbox-input bootbox-input-number form-control' autocomplete=off type='number' />",
-      password:
-          "<input class='bootbox-input bootbox-input-password form-control' autocomplete='off' type='password' />"
+      text: "<input class='bootbox-input bootbox-input-text form-control' autocomplete=off type=text />",
+      textarea: "<textarea class='bootbox-input bootbox-input-textarea form-control'></textarea>",
+      email: "<input class='bootbox-input bootbox-input-email form-control' autocomplete='off' type='email' />",
+      select: "<select class='bootbox-input bootbox-input-select form-control'></select>",
+      checkbox: "<div class='checkbox'><label><input class='bootbox-input bootbox-input-checkbox' type='checkbox' /></label></div>",
+      date: "<input class='bootbox-input bootbox-input-date form-control' autocomplete=off type='date' />",
+      time: "<input class='bootbox-input bootbox-input-time form-control' autocomplete=off type='time' />",
+      number: "<input class='bootbox-input bootbox-input-number form-control' autocomplete=off type='number' />",
+      password: "<input class='bootbox-input bootbox-input-password form-control' autocomplete='off' type='password' />"
     }
   };
 
@@ -117,7 +103,7 @@
     // @TODO defer to Object.keys(x).length if available?
     var k, t = 0;
     for (k in obj) {
-      t ++;
+      t++;
     }
     return t;
   }
@@ -173,7 +159,7 @@
       }
 
       if (!button.className) {
-        if (total <= 2 && index === total-1) {
+        if (total <= 2 && index === total - 1) {
           // always add a primary to the main option in a two-button dialog
           button.className = "btn-primary";
         } else {
@@ -217,18 +203,18 @@
    */
   function mergeArguments(defaults, args, properties) {
     return $.extend(
-        // deep merge
-        true,
-        // ensure the target is an empty, unreferenced object
-        {},
-        // the base options object for this type of dialog (often just buttons)
-        defaults,
-        // args could be an object or array; if it's an array properties will
-        // map it to a proper options object
-        mapArguments(
-            args,
-            properties
-        )
+      // deep merge
+      true,
+      // ensure the target is an empty, unreferenced object
+      {},
+      // the base options object for this type of dialog (often just buttons)
+      defaults,
+      // args could be an object or array; if it's an array properties will
+      // map it to a proper options object
+      mapArguments(
+        args,
+        properties
+      )
     );
   }
 
@@ -246,14 +232,14 @@
     // ensure the buttons properties generated, *after* merging
     // with user args are still valid against the supplied labels
     return validateButtons(
-        // merge the generated base properties with user supplied arguments
-        mergeArguments(
-            baseOptions,
-            args,
-            // if args.length > 1, properties specify how each arg maps to an object key
-            properties
-        ),
-        labels
+      // merge the generated base properties with user supplied arguments
+      mergeArguments(
+        baseOptions,
+        args,
+        // if args.length > 1, properties specify how each arg maps to an object key
+        properties
+      ),
+      labels
     );
   }
 
@@ -367,8 +353,7 @@
     };
 
     options = validateButtons(
-        mergeArguments(defaults, arguments, ["title", "callback"]),
-        ["cancel", "confirm"]
+      mergeArguments(defaults, arguments, ["title", "callback"]), ["cancel", "confirm"]
     );
 
     // capture the user's show value; we always set this to false before
@@ -489,7 +474,7 @@
         break;
 
       case "checkbox":
-        var values   = $.isArray(options.value) ? options.value : [options.value];
+        var values = $.isArray(options.value) ? options.value : [options.value];
         inputOptions = options.inputOptions || [];
 
         if (!inputOptions.length) {
@@ -582,9 +567,9 @@
 
     if ($.fn.modal === undefined) {
       throw new Error(
-          "$.fn.modal is not defined; please double check you have included " +
-          "the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ " +
-          "for more details."
+        "$.fn.modal is not defined; please double check you have included " +
+        "the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ " +
+        "for more details."
       );
     }
 
@@ -735,7 +720,7 @@
     $(options.container).append(dialog);
 
     dialog.modal({
-      backdrop: options.backdrop ? "static": false,
+      backdrop: options.backdrop ? "static" : false,
       keyboard: false,
       show: false
     });
@@ -793,169 +778,170 @@
    * unlikely to be required. If this gets too large it can be split out into separate JS files.
    */
   var locales = {
-    ar : {
-      OK      : "موافق",
-      CANCEL  : "الغاء",
-      CONFIRM : "تأكيد"
+    ar: {
+      OK: "موافق",
+      CANCEL: "الغاء",
+      CONFIRM: "تأكيد"
     },
-    bg_BG : {
-      OK      : "Ок",
-      CANCEL  : "Отказ",
-      CONFIRM : "Потвърждавам"
+    bg_BG: {
+      OK: "Ок",
+      CANCEL: "Отказ",
+      CONFIRM: "Потвърждавам"
     },
-    br : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Sim"
+    br: {
+      OK: "OK",
+      CANCEL: "Cancelar",
+      CONFIRM: "Sim"
     },
-    cs : {
-      OK      : "OK",
-      CANCEL  : "Zrušit",
-      CONFIRM : "Potvrdit"
+    cs: {
+      OK: "OK",
+      CANCEL: "Zrušit",
+      CONFIRM: "Potvrdit"
     },
-    da : {
-      OK      : "OK",
-      CANCEL  : "Annuller",
-      CONFIRM : "Accepter"
+    da: {
+      OK: "OK",
+      CANCEL: "Annuller",
+      CONFIRM: "Accepter"
     },
-    de : {
-      OK      : "OK",
-      CANCEL  : "Abbrechen",
-      CONFIRM : "Akzeptieren"
+    de: {
+      OK: "OK",
+      CANCEL: "Abbrechen",
+      CONFIRM: "Akzeptieren"
     },
-    el : {
-      OK      : "Εντάξει",
-      CANCEL  : "Ακύρωση",
-      CONFIRM : "Επιβεβαίωση"
+    el: {
+      OK: "Εντάξει",
+      CANCEL: "Ακύρωση",
+      CONFIRM: "Επιβεβαίωση"
     },
-    en : {
-      OK      : "OK",
-      CANCEL  : "Cancel",
-      CONFIRM : "OK"
+    en: {
+      OK: "OK",
+      CANCEL: "取消",
+      CONFIRM: "确认"
     },
-    es : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Aceptar"
+    es: {
+      OK: "OK",
+      CANCEL: "Cancelar",
+      CONFIRM: "Aceptar"
     },
-    et : {
-      OK      : "OK",
-      CANCEL  : "Katkesta",
-      CONFIRM : "OK"
+    et: {
+      OK: "OK",
+      CANCEL: "Katkesta",
+      CONFIRM: "OK"
     },
-    fa : {
-      OK      : "قبول",
-      CANCEL  : "لغو",
-      CONFIRM : "تایید"
+    fa: {
+      OK: "قبول",
+      CANCEL: "لغو",
+      CONFIRM: "تایید"
     },
-    fi : {
-      OK      : "OK",
-      CANCEL  : "Peruuta",
-      CONFIRM : "OK"
+    fi: {
+      OK: "OK",
+      CANCEL: "Peruuta",
+      CONFIRM: "OK"
     },
-    fr : {
-      OK      : "OK",
-      CANCEL  : "Annuler",
-      CONFIRM : "Confirmer"
+    fr: {
+      OK: "OK",
+      CANCEL: "Annuler",
+      CONFIRM: "Confirmer"
     },
-    he : {
-      OK      : "אישור",
-      CANCEL  : "ביטול",
-      CONFIRM : "אישור"
+    he: {
+      OK: "אישור",
+      CANCEL: "ביטול",
+      CONFIRM: "אישור"
     },
-    hu : {
-      OK      : "OK",
-      CANCEL  : "Mégsem",
-      CONFIRM : "Megerősít"
+    hu: {
+      OK: "OK",
+      CANCEL: "Mégsem",
+      CONFIRM: "Megerősít"
     },
-    hr : {
-      OK      : "OK",
-      CANCEL  : "Odustani",
-      CONFIRM : "Potvrdi"
+    hr: {
+      OK: "OK",
+      CANCEL: "Odustani",
+      CONFIRM: "Potvrdi"
     },
-    id : {
-      OK      : "OK",
-      CANCEL  : "Batal",
-      CONFIRM : "OK"
+    id: {
+      OK: "OK",
+      CANCEL: "Batal",
+      CONFIRM: "OK"
     },
-    it : {
-      OK      : "OK",
-      CANCEL  : "Annulla",
-      CONFIRM : "Conferma"
+    it: {
+      OK: "OK",
+      CANCEL: "Annulla",
+      CONFIRM: "Conferma"
     },
-    ja : {
-      OK      : "OK",
-      CANCEL  : "キャンセル",
-      CONFIRM : "確認"
+    ja: {
+      OK: "OK",
+      CANCEL: "キャンセル",
+      CONFIRM: "確認"
     },
-    lt : {
-      OK      : "Gerai",
-      CANCEL  : "Atšaukti",
-      CONFIRM : "Patvirtinti"
+    lt: {
+      OK: "Gerai",
+      CANCEL: "Atšaukti",
+      CONFIRM: "Patvirtinti"
     },
-    lv : {
-      OK      : "Labi",
-      CANCEL  : "Atcelt",
-      CONFIRM : "Apstiprināt"
+    lv: {
+      OK: "Labi",
+      CANCEL: "Atcelt",
+      CONFIRM: "Apstiprināt"
     },
-    nl : {
-      OK      : "OK",
-      CANCEL  : "Annuleren",
-      CONFIRM : "Accepteren"
+    nl: {
+      OK: "OK",
+      CANCEL: "Annuleren",
+      CONFIRM: "Accepteren"
     },
-    no : {
-      OK      : "OK",
-      CANCEL  : "Avbryt",
-      CONFIRM : "OK"
+    no: {
+      OK: "OK",
+      CANCEL: "Avbryt",
+      CONFIRM: "OK"
     },
-    pl : {
-      OK      : "OK",
-      CANCEL  : "Anuluj",
-      CONFIRM : "Potwierdź"
+    pl: {
+      OK: "OK",
+      CANCEL: "Anuluj",
+      CONFIRM: "Potwierdź"
     },
-    pt : {
-      OK      : "OK",
-      CANCEL  : "Cancelar",
-      CONFIRM : "Confirmar"
+    pt: {
+      OK: "OK",
+      CANCEL: "Cancelar",
+      CONFIRM: "Confirmar"
     },
-    ru : {
-      OK      : "OK",
-      CANCEL  : "Отмена",
-      CONFIRM : "Применить"
+    ru: {
+      OK: "OK",
+      CANCEL: "Отмена",
+      CONFIRM: "Применить"
     },
-    sq : {
-      OK : "OK",
-      CANCEL : "Anulo",
-      CONFIRM : "Prano"
+    sq: {
+      OK: "OK",
+      CANCEL: "Anulo",
+      CONFIRM: "Prano"
     },
-    sv : {
-      OK      : "OK",
-      CANCEL  : "Avbryt",
-      CONFIRM : "OK"
+    sv: {
+      OK: "OK",
+      CANCEL: "Avbryt",
+      CONFIRM: "OK"
     },
-    th : {
-      OK      : "ตกลง",
-      CANCEL  : "ยกเลิก",
-      CONFIRM : "ยืนยัน"
+    th: {
+      OK: "ตกลง",
+      CANCEL: "ยกเลิก",
+      CONFIRM: "ยืนยัน"
     },
-    tr : {
-      OK      : "Tamam",
-      CANCEL  : "İptal",
-      CONFIRM : "Onayla"
+    tr: {
+      OK: "Tamam",
+      CANCEL: "İptal",
+      CONFIRM: "Onayla"
     },
-    zh_CN : {
-      OK      : "OK",
-      CANCEL  : "取消",
-      CONFIRM : "确认"
+    zh_CN: {
+      OK: "OK",
+      CANCEL: "取消",
+      CONFIRM: "确认"
     },
-    zh_TW : {
-      OK      : "OK",
-      CANCEL  : "取消",
-      CONFIRM : "確認"
+    zh_TW: {
+      OK: "OK",
+      CANCEL: "取消",
+      CONFIRM: "確認"
     }
   };
 
   exports.addLocale = function(name, values) {
+    console.log(name);
     $.each(["OK", "CANCEL", "CONFIRM"], function(_, v) {
       if (!values[v]) {
         throw new Error("Please supply a translation for '" + v + "'");

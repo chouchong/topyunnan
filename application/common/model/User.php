@@ -60,7 +60,7 @@ class User extends Model
 			/* 验证用户密码 */
 			if(think_ucenter_md5($data['password'], config('UC_AUTH_KEY')) === $user->password){
 				$this->updateLogin($user->id); //更新用户登录信息
-				Session::set('user',$user);
+				Session::set('userInfo',$user);
 				return ['status' => $user->id , 'msg' => $user]; //返回用户ID
 			} else {
 				return ['status' => -3, 'msg' => '密码错误'];
