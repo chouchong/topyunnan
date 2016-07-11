@@ -12,7 +12,7 @@
         {volist name="navBar" id="vo"}
         <li {if $pid == $vo['id']}class="open"{/if}{if $uri == $vo['name']}class="active"{/if}>
             <a href='{if !empty($vo["name"])}{:url($vo["name"])}{else}#{/if}' class="menu-dropdown">
-                <i class="menu-icon {$vo['title']}"></i>
+                <i class="menu-icon {$vo['icon']}"></i>
                 <span class="menu-text">{$vo['title']} </span>
                 <i class="menu-expand"></i>
             </a>

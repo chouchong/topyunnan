@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2016-07-08 19:09:03
+Date: 2016-07-11 10:54:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `role` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of role
@@ -49,6 +49,15 @@ CREATE TABLE `role_rule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限关联表';
 
 -- ----------------------------
+-- Records of role_rule
+-- ----------------------------
+INSERT INTO `role_rule` VALUES ('1', '1');
+INSERT INTO `role_rule` VALUES ('1', '2');
+INSERT INTO `role_rule` VALUES ('1', '3');
+INSERT INTO `role_rule` VALUES ('1', '4');
+INSERT INTO `role_rule` VALUES ('1', '5');
+
+-- ----------------------------
 -- Table structure for rule
 -- ----------------------------
 DROP TABLE IF EXISTS `rule`;
@@ -62,7 +71,16 @@ CREATE TABLE `rule` (
   `sort` int(3) NOT NULL DEFAULT '255' COMMENT '排序',
   PRIMARY KEY (`id`),
   UNIQUE KEY `rulename` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='权限&菜单表';
+
+-- ----------------------------
+-- Records of rule
+-- ----------------------------
+INSERT INTO `rule` VALUES ('1', '0', 'admin/index/index', '控制面板', 'fa fa-home', '1', '1');
+INSERT INTO `rule` VALUES ('2', '0', '', '权限管理', 'fa fa-cogs', '1', '2');
+INSERT INTO `rule` VALUES ('3', '2', 'admin/user/index', '管理员列表', 'fa fa-user', '1', '1');
+INSERT INTO `rule` VALUES ('4', '2', 'admin/role/index', '角色列表', 'fa fa-users', '1', '2');
+INSERT INTO `rule` VALUES ('5', '2', 'admin/rule/index', '权限列表', 'fa fa-gears', '1', '3');
 
 -- ----------------------------
 -- Table structure for user

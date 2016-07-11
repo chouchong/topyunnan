@@ -13,7 +13,7 @@ class Rule extends Base
 	public function index()
 	{
 		$ruleModel = Loader::model('Rule');
-        $lists = $ruleModel->where('parent_id', 0)->order('sort', 'asc')->select();
+        $lists = $ruleModel->where('parent_id', 0)->order('sort', 'asc')->paginate(5);
         $this->assign('lists', $lists);
 		return view();
 	}
