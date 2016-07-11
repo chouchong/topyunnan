@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468219113;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:72:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\add.html";i:1468233697;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -209,7 +209,7 @@
             <li>
                 <a href="#">权限管理</a>
             </li>
-            <li class="active">权限列表</li>
+            <li class="active">角色列表</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -217,7 +217,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                权限列表
+                角色列表
                 <small>
                 </small>
             </h1>
@@ -239,102 +239,80 @@
     <!-- /Page Header -->
     <!-- Page Body -->
     <div class="page-body">
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="widget">
-                    <div class="widget-header ">
-                        <span class="widget-caption">权限列表</span>
-                        <div class="widget-buttons">
-                            <a href="#" data-toggle="maximize">
-                                <i class="fa fa-expand"></i>
-                            </a>
-                            <a href="#" data-toggle="collapse">
-                                <i class="fa fa-minus"></i>
-                            </a>
-                            <a href="#" data-toggle="dispose">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="widget-body">
-                        <div class="table-toolbar">
-                            <a id="editabledatatable_new" href="<?php echo url('admin/rule/add'); ?>" class="btn btn-default">
-                                节点添加
-                            </a>
-                        </div>
-                        <table class="table table-striped table-hover table-bordered" id="editabledatatable">
-                            <thead>
-                                <tr class="active">
-                                    <th>菜单名称</th>
-                                    <th>链接</th>
-                                    <th>ICON</th>
-                                    <th>类型</th>
-                                    <th>排序</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                            <tr class="success">
-                                <td class="text-left">
-                                <?php echo $vo['title']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $vo['name']; ?>
-                                </td>
-                                <td><?php echo $vo['icon']; ?></td>
-                                <td><?php echo $vo['islink']; ?></td>
-                                <td><?php echo $vo['sort']; ?></td>
-                                <td>
-                                    <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$vo['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                    <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$vo['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                </td>
-                                </tr>
-                                <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
-                                    <tr class="active">
-                                        <td class="text-left">
-                                        &nbsp;&nbsp;┗━
-                                        <?php echo $v['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $v['name']; ?>
-                                        </td>
-                                        <td><?php echo $v['icon']; ?></td>
-                                        <td><?php echo $v['islink']; ?></td>
-                                        <td><?php echo $v['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$v['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$v['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                    <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
-                                    <tr <?php if($ss['parent_id'] == 0): ?> class="success" <?php endif; ?>>
-                                        <td class="text-left">
-                                        &nbsp;&nbsp; &nbsp;&nbsp;┗━━
-                                        <?php echo $ss['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $ss['name']; ?>
-                                        </td>
-                                        <td><?php echo $ss['icon']; ?></td>
-                                        <td><?php echo $ss['islink']; ?></td>
-                                        <td><?php echo $ss['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$ss['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$ss['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
-                            <tr>
-                                <td colspan="7" rowspan=""><?php echo $lists->render(); ?></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-sky">
+                <span class="widget-caption">角色添加</span>
+            </div>
+            <div class="widget-body">
+                <form method="POST" name="rule">
+                    <table cellspacing="1" id="rs" class="table table-bordered table-hover">
+                        <tr class="r1">
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <span class="text">角色名称</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" name="name" class="form-control input-label" id="input" placeholder="角色名称">
+                            </td>
+                        </tr>
+                        <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <tr class="r1">
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo['id']; ?>">
+                                            <span class="text"><?php echo $vo['title']; ?></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                               <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo1): $mod = ($i % 2 );++$i;?>
+                                <div>
+                                    <div class="col-lg-12 col-sm-12 col-xs-12 r2" style="background:#ccc;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo1['id']; ?>">
+                                                <span class="text"><?php echo $vo1['title']; ?></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <?php if(is_array($vo1->parent) || $vo1->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo1->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo2): $mod = ($i % 2 );++$i;?>
+                                    <div class="col-lg-2 col-sm-2 col-xs-2 r3">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo2['id']; ?>" >
+                                                <span class="text"><?php echo $vo2['title']; ?></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="btn btn-default shiny">保 存</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
+</div>
+</div>
     <!-- /Page Body -->
 </div>
 
@@ -406,6 +384,28 @@
     </div> <!-- / .modal-dialog -->
 </div>
     
+<script>
+$(function() {
+    $('.r1 td:nth-child(1) .inverted').on('click', function() {
+        if ($(this).prop('checked')) {
+            $(this).closest('td').siblings().find('.inverted').prop('checked', true);
+        } else {
+            $(this).closest('td').siblings().find('.inverted').prop('checked', false);
+        }
+    });
+    $('.r1 td:nth-child(2) .r2 .inverted').on('click', function() {
+        if($(this).prop('checked')){
+            $(this).closest('.r2').siblings('.r3').find('.inverted').prop('checked', true);
+        }else{
+            $(this).closest('.r2').siblings('.r3').find('.inverted').prop('checked', false);
+        }
+    });
+    $("button[type='button']").on('click',function(){
+        console.log($("input[type='checkbox']").is(':checked').val());
+    });
+})
+</script>
+
     <script>
     </script>
 </body>

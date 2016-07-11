@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:75:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\index\index.html";i:1468203746;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:75:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\index\index.html";i:1468203746;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468218879;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -174,7 +174,7 @@
         <?php if(is_array($navBar) || $navBar instanceof \think\Collection): $i = 0; $__LIST__ = $navBar;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
         <li <?php if($pid == $vo['id']): ?>class="open"<?php endif; if($uri == $vo['name']): ?>class="active"<?php endif; ?>>
             <a href='<?php if(!empty($vo["name"])): ?><?php echo url($vo["name"]); else: ?>#<?php endif; ?>' class="menu-dropdown">
-                <i class="menu-icon <?php echo $vo['title']; ?>"></i>
+                <i class="menu-icon <?php echo $vo['icon']; ?>"></i>
                 <span class="menu-text"><?php echo $vo['title']; ?> </span>
                 <i class="menu-expand"></i>
             </a>
@@ -1130,6 +1130,11 @@
 </div>
 <!--End Success Modal Templates-->
     
+    <script>
+        function checkUrl(url){
+            alert("<?php echo url('url'); ?>");
+        }
+    </script>
 </body>
 <!--  /Body -->
 </html>

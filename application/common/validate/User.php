@@ -11,6 +11,7 @@ class User extends Validate
         'email'     =>  'email',
         'password'  =>  'require|length:4,25',
         'username_login' => 'require|username',
+        'rid' => 'require',
     ];
 
     protected $message = [
@@ -20,10 +21,11 @@ class User extends Validate
         'password.require' => '密码必须填写',
         'password.length'  => '密码必须大于4个字符小于25个字符',
         'email'            => '邮箱格式错误',
+        'rid.require' => '管理员角色必须选择',
     ];
 
     protected $scene = [
-        'add'    =>  ['username'=>'require|unique:user,username|max:25','email','password'],
+        'add'    =>  ['username'=>'require|unique:user,username|max:25','password','rid'],
         'login'  =>  ['username','password'],
     ];
 }

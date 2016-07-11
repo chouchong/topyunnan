@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468219113;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:72:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\user\add.html";i:1468229782;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,6 +34,12 @@
 <script src="/assets/js/bootbox/bootbox.js"></script>
 
     
+<style>
+    .input-label{
+        width:500px;
+    }
+</style>
+
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -198,7 +204,7 @@
             <!-- /Page Sidebar -->
             <!-- Page Content -->
             
-<div class="page-content">
+<div class="page-content" id="addUser">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
@@ -209,7 +215,7 @@
             <li>
                 <a href="#">权限管理</a>
             </li>
-            <li class="active">权限列表</li>
+            <li class="active">管理员添加</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -217,9 +223,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                权限列表
-                <small>
-                </small>
+                管理员添加
             </h1>
         </div>
         <!--Header Buttons-->
@@ -240,96 +244,51 @@
     <!-- Page Body -->
     <div class="page-body">
         <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="widget">
-                    <div class="widget-header ">
-                        <span class="widget-caption">权限列表</span>
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                        <span class="widget-caption">管理员添加</span>
                         <div class="widget-buttons">
                             <a href="#" data-toggle="maximize">
                                 <i class="fa fa-expand"></i>
                             </a>
-                            <a href="#" data-toggle="collapse">
-                                <i class="fa fa-minus"></i>
-                            </a>
-                            <a href="#" data-toggle="dispose">
-                                <i class="fa fa-times"></i>
-                            </a>
                         </div>
                     </div>
                     <div class="widget-body">
-                        <div class="table-toolbar">
-                            <a id="editabledatatable_new" href="<?php echo url('admin/rule/add'); ?>" class="btn btn-default">
-                                节点添加
-                            </a>
+                        <div id="horizontal-form">
+                        <validator name="addUserValidation">
+                            <form class="form-horizontal" role="form" novalidate>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">管理员角色</label>
+                                    <div class="col-sm-10">
+                                        <select id="e1" name="rid" class="input-label" v-model="user.rid">
+                                            <option value="0" />无角色
+                                            <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                                <option value="<?php echo $vo['id']; ?>" /><?php echo $vo['name']; endforeach; endif; else: echo "" ;endif; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">用户名</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="username" class="form-control input-label" id="input" placeholder="用户名" v-validate:username="{ required: true}" v-model="user.username">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control input-label" id="input" name="password" placeholder="密码" v-model="user.password" v-validate:password="{ required: true }">
+                                    <p class="help-block" v-if="msg" style="color: red;">{{msg}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button @click="addUser()" :disabled="$addUserValidation.invalid" type="button" class="btn btn-blue">保 存</button>
+                                    </div>
+                                </div>
+                            </form>
+                            </validator>
                         </div>
-                        <table class="table table-striped table-hover table-bordered" id="editabledatatable">
-                            <thead>
-                                <tr class="active">
-                                    <th>菜单名称</th>
-                                    <th>链接</th>
-                                    <th>ICON</th>
-                                    <th>类型</th>
-                                    <th>排序</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                            <tr class="success">
-                                <td class="text-left">
-                                <?php echo $vo['title']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $vo['name']; ?>
-                                </td>
-                                <td><?php echo $vo['icon']; ?></td>
-                                <td><?php echo $vo['islink']; ?></td>
-                                <td><?php echo $vo['sort']; ?></td>
-                                <td>
-                                    <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$vo['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                    <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$vo['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                </td>
-                                </tr>
-                                <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
-                                    <tr class="active">
-                                        <td class="text-left">
-                                        &nbsp;&nbsp;┗━
-                                        <?php echo $v['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $v['name']; ?>
-                                        </td>
-                                        <td><?php echo $v['icon']; ?></td>
-                                        <td><?php echo $v['islink']; ?></td>
-                                        <td><?php echo $v['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$v['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$v['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                    <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
-                                    <tr <?php if($ss['parent_id'] == 0): ?> class="success" <?php endif; ?>>
-                                        <td class="text-left">
-                                        &nbsp;&nbsp; &nbsp;&nbsp;┗━━
-                                        <?php echo $ss['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $ss['name']; ?>
-                                        </td>
-                                        <td><?php echo $ss['icon']; ?></td>
-                                        <td><?php echo $ss['islink']; ?></td>
-                                        <td><?php echo $ss['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$ss['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$ss['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
-                            <tr>
-                                <td colspan="7" rowspan=""><?php echo $lists->render(); ?></td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -406,6 +365,45 @@
     </div> <!-- / .modal-dialog -->
 </div>
     
+    <script>
+        var vm = new Vue({
+          el: '#addUser',
+          data: {
+            user: {},
+            msg:''
+          },
+          init: function () {
+          },
+          methods: {
+            addUser: function () {
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo url("admin/user/add"); ?>',
+                    dataType: 'json',
+                    cache: false,
+                    data: this.user,
+                    success: function(data) {
+                        if(data.status>0){
+                            $('#modal-success').modal('show');
+                            $(".modal-body").html("添加成功");
+                            setTimeout(function(){
+                                window.location.href = '<?php echo url("Admin/user/index"); ?>';
+                            },3*1000);
+                        }else{
+                            vm.$set('msg',data.msg)
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+          }
+        })
+    </script>
+
     <script>
     </script>
 </body>

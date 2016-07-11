@@ -74,8 +74,8 @@ class Rule extends Model
     {
         // 没有传role_id 获取登陆用户的用户组
         if ($roleId == 0) {
-            if (Session::has(Config::get('login_session_identifier'))) {
-                $roleId = Session::get(Config::get('login_session_identifier') . ".role_id");
+            if (Session::has('userInfo')) {
+                $roleId = Session::get("userInfo.rid");
             }
         }
         // 没有传auth地址获取当前

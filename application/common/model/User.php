@@ -81,4 +81,11 @@ class User extends Model
 		);
 		$this->update($data);
 	}
+	/**
+	 * 管理员与角色关系
+	 */
+	public function role()
+    {
+        return $this->belongsTo('Role','rid');
+    }
 }

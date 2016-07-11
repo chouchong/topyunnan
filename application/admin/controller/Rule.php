@@ -30,7 +30,16 @@ class Rule extends Base
             }
             return ['status' => -1, 'msg' => Loader::model('Rule')->getError()];
 		}
+		// var_dump(Loader::model('Rule')->checkRule());
         $this->assign('ruleRows', Loader::model('Rule')->getMenusByParentId(0));
 		return view();
+	}
+	/**
+	 * 权限节点删除
+	 * @author chouchong
+	 */
+	public function delete()
+	{
+
 	}
 }

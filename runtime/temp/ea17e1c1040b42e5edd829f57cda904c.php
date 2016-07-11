@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468219113;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\index.html";i:1468230966;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -209,7 +209,7 @@
             <li>
                 <a href="#">权限管理</a>
             </li>
-            <li class="active">权限列表</li>
+            <li class="active">角色列表</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -217,7 +217,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                权限列表
+                角色列表
                 <small>
                 </small>
             </h1>
@@ -243,7 +243,7 @@
             <div class="col-xs-12 col-md-12">
                 <div class="widget">
                     <div class="widget-header ">
-                        <span class="widget-caption">权限列表</span>
+                        <span class="widget-caption">角色列表</span>
                         <div class="widget-buttons">
                             <a href="#" data-toggle="maximize">
                                 <i class="fa fa-expand"></i>
@@ -258,75 +258,35 @@
                     </div>
                     <div class="widget-body">
                         <div class="table-toolbar">
-                            <a id="editabledatatable_new" href="<?php echo url('admin/rule/add'); ?>" class="btn btn-default">
-                                节点添加
+                            <a id="editabledatatable_new" href="<?php echo url('admin/role/add'); ?>" class="btn btn-default">
+                                角色添加
                             </a>
                         </div>
                         <table class="table table-striped table-hover table-bordered" id="editabledatatable">
                             <thead>
                                 <tr class="active">
-                                    <th>菜单名称</th>
-                                    <th>链接</th>
-                                    <th>ICON</th>
-                                    <th>类型</th>
-                                    <th>排序</th>
+                                    <th>角色编号</th>
+                                    <th>角色名称</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                            <tr class="success">
+                            <tr>
                                 <td class="text-left">
-                                <?php echo $vo['title']; ?>
+                                <?php echo $vo['id']; ?>
                                 </td>
                                 <td>
                                     <?php echo $vo['name']; ?>
                                 </td>
-                                <td><?php echo $vo['icon']; ?></td>
-                                <td><?php echo $vo['islink']; ?></td>
-                                <td><?php echo $vo['sort']; ?></td>
                                 <td>
                                     <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$vo['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                    <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$vo['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn btn-danger btn-xs delete" href="javascript:roleDelete(<?php echo $vo['id']; ?>);"><i class="fa fa-trash-o"></i>删除</a>
                                 </td>
-                                </tr>
-                                <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
-                                    <tr class="active">
-                                        <td class="text-left">
-                                        &nbsp;&nbsp;┗━
-                                        <?php echo $v['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $v['name']; ?>
-                                        </td>
-                                        <td><?php echo $v['icon']; ?></td>
-                                        <td><?php echo $v['islink']; ?></td>
-                                        <td><?php echo $v['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$v['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$v['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                    <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
-                                    <tr <?php if($ss['parent_id'] == 0): ?> class="success" <?php endif; ?>>
-                                        <td class="text-left">
-                                        &nbsp;&nbsp; &nbsp;&nbsp;┗━━
-                                        <?php echo $ss['title']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $ss['name']; ?>
-                                        </td>
-                                        <td><?php echo $ss['icon']; ?></td>
-                                        <td><?php echo $ss['islink']; ?></td>
-                                        <td><?php echo $ss['sort']; ?></td>
-                                        <td>
-                                            <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$ss['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$ss['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+                            </tr>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
                             <tr>
-                                <td colspan="7" rowspan=""><?php echo $lists->render(); ?></td>
+                                <td colspan="3" rowspan=""><?php echo $lists->render(); ?></td>
                             </tr>
                             </tbody>
                         </table>
@@ -406,6 +366,39 @@
     </div> <!-- / .modal-dialog -->
 </div>
     
+    <script>
+        function roleDelete(id)
+        {
+            bootbox.confirm("是否删除角色", function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: '<?php echo url("admin/role/delete"); ?>',
+                        dataType: 'json',
+                        cache: false,
+                        data:{id:id},
+                        success: function(data) {
+                            if(data.status>0){
+                                location.reload();
+                            }else{
+                                $('#modal-danger').modal('show');
+                                $('#modal-danger').find('.modal-body').html("删除失败");
+                                setTimeout(function(){
+                                    $('#modal-danger').modal('hide');
+                                },2*1000);
+                                }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
     <script>
     </script>
 </body>
