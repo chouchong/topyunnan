@@ -4,12 +4,12 @@ namespace app\common\validate;
 use \think\Validate;
 use \think\Db;
 
-class Rule extends Validate
+class Role extends Validate
 {
     protected $rule = [
         'name'   => 'require|unique:role,name|length:3,25',
-        'status' => 'require|in:0,1'
-        'remark' => 'max:250'
+        'status' => 'require|in:0,1',
+        'remark' => 'max:250',
         'rules'  => 'array'
     ];
 
@@ -23,6 +23,6 @@ class Rule extends Validate
     ];
 
     protected $scene = [
-        'add' => ['name','rules'],
+        'add' => ['name','status','rules'],
     ];
 }

@@ -86,6 +86,6 @@ class User extends Model
 	 */
 	public function role()
     {
-        return $this->belongsTo('Role','rid');
+        return $this->belongsTo('Role','role_id');
     }
 }

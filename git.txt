@@ -20,3 +20,7 @@ git push -u origin master
 git add .
 git commit -m "权限第一天1"
 git push -u origin master
+
+git add .
+git commit -m "权限第一天2"
+git push -u origin master

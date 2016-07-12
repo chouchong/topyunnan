@@ -131,9 +131,9 @@ return [
     // 默认跳转页面对应的模板文件
     // 'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     // 'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
-    'dispatch_error_tmpl' => 'public/error',
     //默认成功跳转对应的模板文件
     'dispatch_success_tmpl' => 'public/success',
+    'dispatch_error_tmpl' => 'public/error',
 
     // +----------------------------------------------------------------------
     // | 异常及错误设置
@@ -226,4 +226,5 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    'UC_AUTH_KEY'=>'P~^nlxj3i?e-%pwSHr"gLyA|EQ+Is@5!1.2RbM<W',
 ];

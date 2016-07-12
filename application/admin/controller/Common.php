@@ -14,7 +14,7 @@ class Common
 	 */
 	public function login()
 	{
-		// Config::set('default_return_type','json');
+		Config::set('default_return_type','json');
 		$request = Request::instance();
 		if($request->isPOST())
 		{
@@ -39,7 +39,7 @@ class Common
 	 */
 	public function logout()
 	{
-		// Config::set('default_return_type','json');
+		Config::set('default_return_type','json');
 		Session::delete('userInfo');
 		return ['status' => 1];
 	}

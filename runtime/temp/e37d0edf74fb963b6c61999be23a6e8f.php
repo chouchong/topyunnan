@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:72:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\add.html";i:1468233697;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:72:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\add.html";i:1468308999;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -248,7 +248,7 @@
             <div class="widget-body">
                 <form method="POST" name="rule">
                     <table cellspacing="1" id="rs" class="table table-bordered table-hover">
-                        <tr class="r1">
+                        <tr>
                             <td>
                                 <div class="col-lg-12 col-sm-12 col-xs-12">
                                     <div class="checkbox">
@@ -259,7 +259,25 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="text" name="name" class="form-control input-label" id="input" placeholder="角色名称">
+                                <input type="text" name="name"  class="form-control input-label" id="roleName" placeholder="角色名称">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="checkbox_fixednavbar">
+                                        <span class="text">是否启用</span>
+                                    </label>
+                                </div>
                             </td>
                         </tr>
                         <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -268,7 +286,7 @@
                                 <div class="col-lg-12 col-sm-12 col-xs-12">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo['id']; ?>">
+                                            <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo['id']; ?>" id="rules_<?php echo $vo['id']; ?>">
                                             <span class="text"><?php echo $vo['title']; ?></span>
                                         </label>
                                     </div>
@@ -280,7 +298,7 @@
                                     <div class="col-lg-12 col-sm-12 col-xs-12 r2" style="background:#ccc;">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo1['id']; ?>">
+                                                <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo1['id']; ?>" id="rules_<?php echo $vo1['id']; ?>">
                                                 <span class="text"><?php echo $vo1['title']; ?></span>
                                             </label>
                                         </div>
@@ -289,7 +307,7 @@
                                     <div class="col-lg-2 col-sm-2 col-xs-2 r3">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" class="inverted" name="rules[]" value="<?php echo $vo2['id']; ?>" >
+                                                <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo2['id']; ?>" id="rules_<?php echo $vo2['id']; ?>">
                                                 <span class="text"><?php echo $vo2['title']; ?></span>
                                             </label>
                                         </div>
@@ -401,7 +419,41 @@ $(function() {
         }
     });
     $("button[type='button']").on('click',function(){
-        console.log($("input[type='checkbox']").is(':checked').val());
+        var grant = [];
+        var params = {};
+        $('.inverted').each(function(){
+           if($(this).prop('checked'))grant.push($(this).val());
+        });
+        params.name = $('#roleName').val();
+        params.status = $('#checkbox_fixednavbar').is(':checked')==true?1:0;
+        params.rules = grant;
+        $.ajax({
+            type: "POST",
+            url: '<?php echo url("admin/role/add"); ?>',
+            dataType: 'json',
+            cache: false,
+            data: params,
+            success: function(data) {
+                if(data.status>0){
+                    $('#modal-success').modal('show');
+                    $('#modal-success').find('.modal-body').html("添加成功");
+                    setTimeout(function(){
+                        window.location.href = '<?php echo url("Admin/role/index"); ?>';
+                    },3*1000);
+                }else{
+                    $('#modal-danger').modal('show');
+                    $('#modal-danger').find('.modal-body').html(data.msg);
+                    setTimeout(function(){
+                        $('#modal-danger').modal('hide');
+                    },2*1000);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
     });
 })
 </script>

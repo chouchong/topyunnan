@@ -14,6 +14,7 @@ class Base extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+
 		Config::set('default_return_type','json');
 		$this->isUser();
 
@@ -40,12 +41,12 @@ class Base extends Controller
 		}
 	}
 	/**
-     * 获取当前位置
+     * 获取菜单
      * @author chouchong
      */
     protected function getBreadcrumb()
     {
-        $ruleData = Loader::model('Rule')->getMenusByRoleId(session('userInfo.rid'));
+        $ruleData = Loader::model('Rule')->getMenusByRoleId(session('userInfo.role_id'));
         $this->assign('navBar', $ruleData);
     }
 }

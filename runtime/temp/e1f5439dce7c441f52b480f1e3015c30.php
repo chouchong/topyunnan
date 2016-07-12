@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468219113;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468318167;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -287,7 +287,7 @@
                                 <td><?php echo $vo['sort']; ?></td>
                                 <td>
                                     <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$vo['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                    <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$vo['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn btn-danger btn-xs delete" href="javascript:ruleDelete(<?php echo $vo['id']; ?>)"><i class="fa fa-trash-o"></i>删除</a>
                                 </td>
                                 </tr>
                                 <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
@@ -304,7 +304,7 @@
                                         <td><?php echo $v['sort']; ?></td>
                                         <td>
                                             <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$v['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$v['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
+                                            <a class="btn btn-danger btn-xs delete" href="javascript:ruleDelete(<?php echo $v['id']; ?>)"><i class="fa fa-trash-o"></i>删除</a>
                                         </td>
                                     </tr>
                                     <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
@@ -321,7 +321,7 @@
                                         <td><?php echo $ss['sort']; ?></td>
                                         <td>
                                             <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$ss['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                            <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/delete',['id'=>$ss['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
+                                            <a class="btn btn-danger btn-xs delete" href="javascript:ruleDelete(<?php echo $ss['id']; ?>);"><i class="fa fa-trash-o"></i>删除</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
@@ -406,6 +406,44 @@
     </div> <!-- / .modal-dialog -->
 </div>
     
+    <script>
+        //权限节点删除
+        function ruleDelete(id)
+        {
+            bootbox.confirm("是否删除权限节点", function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: '<?php echo url("admin/rule/delete"); ?>',
+                        dataType: 'json',
+                        cache: false,
+                        data:{id:id},
+                        success: function(data) {
+                            if(data.status>0){
+                                $('#modal-success').modal('show');
+                                $('#modal-success').find('.modal-body').html("删除成功");
+                                setTimeout(function(){
+                                    location.reload();
+                                },2*1000);
+                            }else{
+                                $('#modal-danger').modal('show');
+                                $('#modal-danger').find('.modal-body').html("删除失败");
+                                setTimeout(function(){
+                                    $('#modal-danger').modal('hide');
+                                },2*1000);
+                                }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
     <script>
     </script>
 </body>

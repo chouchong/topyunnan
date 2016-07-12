@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:65:"E:\www\topyunnan\public/../application/admin\view\rule\index.html";i:1468126659;s:64:"E:\www\topyunnan\public/../application/admin\view\base\base.html";i:1468041277;s:67:"E:\www\topyunnan\public/../application/admin\view\public\style.html";i:1467991494;s:69:"E:\www\topyunnan\public/../application/admin\view\public\loading.html";i:1467978751;s:65:"E:\www\topyunnan\public/../application/admin\view\public\nav.html";i:1467991973;s:69:"E:\www\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468049460;s:68:"E:\www\topyunnan\public/../application/admin\view\public\script.html";i:1467991488;s:67:"E:\www\topyunnan\public/../application/admin\view\public\modal.html";i:1468043098;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\edit.html";i:1468318582;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,6 +34,12 @@
 <script src="/assets/js/bootbox/bootbox.js"></script>
 
     
+<style>
+    .input-label{
+        width:500px;
+    }
+</style>
+
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -174,7 +180,7 @@
         <?php if(is_array($navBar) || $navBar instanceof \think\Collection): $i = 0; $__LIST__ = $navBar;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
         <li <?php if($pid == $vo['id']): ?>class="open"<?php endif; if($uri == $vo['name']): ?>class="active"<?php endif; ?>>
             <a href='<?php if(!empty($vo["name"])): ?><?php echo url($vo["name"]); else: ?>#<?php endif; ?>' class="menu-dropdown">
-                <i class="menu-icon <?php echo $vo['title']; ?>"></i>
+                <i class="menu-icon <?php echo $vo['icon']; ?>"></i>
                 <span class="menu-text"><?php echo $vo['title']; ?> </span>
                 <i class="menu-expand"></i>
             </a>
@@ -198,7 +204,7 @@
             <!-- /Page Sidebar -->
             <!-- Page Content -->
             
-<div class="page-content">
+<div class="page-content" id="editRule">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
@@ -209,7 +215,7 @@
             <li>
                 <a href="#">权限管理</a>
             </li>
-            <li class="active">权限列表</li>
+            <li class="active">节点添加</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -217,9 +223,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                权限列表
-                <small>
-                </small>
+                节点编辑
             </h1>
         </div>
         <!--Header Buttons-->
@@ -240,107 +244,73 @@
     <!-- Page Body -->
     <div class="page-body">
         <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="widget">
-                    <div class="widget-header ">
-                        <span class="widget-caption">权限列表</span>
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bordered-bottom bordered-themeprimary">
+                        <span class="widget-caption">权限节点</span>
                         <div class="widget-buttons">
                             <a href="#" data-toggle="maximize">
                                 <i class="fa fa-expand"></i>
                             </a>
-                            <a href="#" data-toggle="collapse">
-                                <i class="fa fa-minus"></i>
-                            </a>
-                            <a href="#" data-toggle="dispose">
-                                <i class="fa fa-times"></i>
-                            </a>
                         </div>
                     </div>
                     <div class="widget-body">
-                        <div class="table-toolbar">
-                            <a id="editabledatatable_new" href="<?php echo url('admin/rule/add'); ?>" class="btn btn-default">
-                                节点添加
-                            </a>
+                        <div id="horizontal-form">
+                        <validator name="addRuthValidation">
+                            <form class="form-horizontal" role="form" novalidate>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">上级菜单</label>
+                                    <div class="col-sm-10">
+                                        <select id="e1" name="parent_id" class="input-label" v-model="rule.parent_id">
+                                            <option value="0" <?php if(0 == $rule['parent_id']): ?> selected="selected" <?php endif; ?>/>上级菜单
+                                            <?php if(is_array($ruleRows) || $ruleRows instanceof \think\Collection): $i = 0; $__LIST__ = $ruleRows;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                                <option value="<?php echo $vo['id']; ?>" <?php if($vo['id'] == $rule['parent_id']): ?> selected="selected" <?php endif; ?>/><?php echo $vo['title']; if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
+                                                <option value="<?php echo $v['id']; ?>" <?php if($v['id'] == $rule['parent_id']): ?> selected="selected" <?php endif; ?>/>------<?php echo $v['title']; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="title" class="form-control input-label" id="input" placeholder="菜单名称" v-validate:title="{ required: true}" v-model="rule.title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单链接</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-label" id="input" name="name" placeholder="菜单链接" v-model="rule.name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">ICON图标</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-label" id="input" name="icon" placeholder="ICON图标" v-model="rule.icon">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单排序</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-label" id="input" name="sort" placeholder="菜单排序" v-validate:sort="{ required: true, minlength: 0, maxlength: 3}" v-model="rule.sort">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="input" class="col-sm-2 control-label no-padding-right">是否菜单链接</label>
+                                    <div class="col-sm-10 checkbox">
+                                        <label>
+                                            <input type="checkbox" name="islink" v-model="rule.islink">
+                                            <span class="text">是否菜单链接</span>
+                                        </label>
+                                        <p class="help-block" v-if="msg" style="color: red;">{{msg}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button @click="editRule()" :disabled="$addRuthValidation.invalid" type="button" class="btn btn-blue">保 存</button>
+                                    </div>
+                                </div>
+                            </form>
+                            </validator>
                         </div>
-                        <table class="table table-striped table-hover table-bordered" id="editabledatatable">
-                            <thead>
-                                <tr class="active">
-                                    <th><input class="check-all" type="checkbox" value=""></th>
-                                    <th>菜单名称</th>
-                                    <th>链接</th>
-                                    <th>ICON</th>
-                                    <th>类型</th>
-                                    <th>排序</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>alex</td>
-                                    <td>Alex Nilson</td>
-                                    <td>1234</td>
-                                    <td class="center ">power user</td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs edit"> Edit</a>
-                                        <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>
-                                    </td>
-                                </tr> -->
-                                <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                        <tr class="success">
-                            <td><input class="check-item" type="checkbox" value="<?php echo $vo['id']; ?>"></td>
-                            <td class="text-left">
-                            <?php echo $vo['title']; ?>
-                            </td>
-                            <td>
-                                <?php echo $vo['name']; ?>
-                            </td>
-                            <td><?php echo $vo['icon']; ?></td>
-                            <td><?php echo $vo['islink']; ?></td>
-                            <td><?php echo $vo['sort']; ?></td>
-                            <td>
-                                <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$vo['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/destroy',['id'=>$vo['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                            </td>
-                        </tr>
-                            <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
-                                <tr class="active">
-                                    <td><input class="check-item" type="checkbox" value="<?php echo $v['id']; ?>"></td>
-                                    <td class="text-left">
-                                    &nbsp;&nbsp;┗━
-                                    <?php echo $v['title']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $v['name']; ?>
-                                    </td>
-                                    <td><?php echo $v['icon']; ?></td>
-                                    <td><?php echo $v['islink']; ?></td>
-                                    <td><?php echo $v['sort']; ?></td>
-                                    <td>
-                                        <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$v['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                        <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/destroy',['id'=>$v['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
-                                <tr <?php if($ss['parent_id'] == 0): ?> class="success" <?php endif; ?>>
-                                    <td><input class="check-item" type="checkbox" value="<?php echo $ss['id']; ?>"></td>
-                                    <td class="text-left">
-                                    &nbsp;&nbsp; &nbsp;&nbsp;┗━━
-                                    <?php echo $ss['title']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $ss['name']; ?>
-                                    </td>
-                                    <td><?php echo $ss['icon']; ?></td>
-                                    <td><?php echo $ss['islink']; ?></td>
-                                    <td><?php echo $ss['sort']; ?></td>
-                                    <td>
-                                        <a class="btn btn-info btn-xs edit" href="<?php echo url('admin/rule/edit',['id'=>$ss['id']]); ?>"><i class="fa fa-edit"></i>编辑</a>
-                                        <a class="btn btn-danger btn-xs delete" href="<?php echo url('admin/rule/destroy',['id'=>$ss['id']]); ?>"><i class="fa fa-trash-o"></i>删除</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -401,7 +371,67 @@
     </div> <!-- / .modal-dialog -->
 </div>
 <!--End Success Modal Templates-->
+    <div id="modal-danger" class="modal modal-message modal-danger fade" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="glyphicon glyphicon-fire"></i>
+            </div>
+            <div class="modal-title">Alert</div>
+
+            <div class="modal-body">You'vd done bad!</div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button> -->
+            </div>
+        </div> <!-- / .modal-content -->
+    </div> <!-- / .modal-dialog -->
+</div>
     
+    <script>
+        var vm = new Vue({
+          el: '#editRule',
+          data: {
+            rule: {'title':'<?php echo $rule['title']; ?>','name':'<?php echo $rule['name']; ?>','icon':'<?php echo $rule->getData("icon"); ?>','sort':<?php echo $rule->getData("sort"); ?>,'islink':false,'id':<?php echo $rule['id']; ?>},
+            msg:''
+          },
+          created: function () {
+            if(<?php echo $rule->getData('islink'); ?>>0){
+                this.rule.islink = true;
+            }
+          },
+          methods: {
+            editRule: function () {
+                this.rule.islink=this.rule.islink?1:0;
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo url("admin/rule/add"); ?>',
+                    dataType: 'json',
+                    cache: false,
+                    data: this.rule,
+                    success: function(data) {
+                        if(data.status>0){
+                            $('#modal-success').modal('show');
+                            $(".modal-body").html("修改成功");
+                            setTimeout(function(){
+                                window.location.href = '<?php echo url("Admin/rule/index"); ?>';
+                            },3*1000);
+                        }else{
+                            vm.$set('msg',data.msg)
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+          }
+        })
+    </script>
+
+    <script>
+    </script>
 </body>
 <!--  /Body -->
 </html>

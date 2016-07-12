@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:72:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\user\add.html";i:1468229782;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\edit.html";i:1468309182;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,12 +34,6 @@
 <script src="/assets/js/bootbox/bootbox.js"></script>
 
     
-<style>
-    .input-label{
-        width:500px;
-    }
-</style>
-
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -204,7 +198,7 @@
             <!-- /Page Sidebar -->
             <!-- Page Content -->
             
-<div class="page-content" id="addUser">
+<div class="page-content">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
@@ -215,7 +209,7 @@
             <li>
                 <a href="#">权限管理</a>
             </li>
-            <li class="active">管理员添加</li>
+            <li class="active">角色列表</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -223,7 +217,9 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                管理员添加
+                角色列表
+                <small>
+                </small>
             </h1>
         </div>
         <!--Header Buttons-->
@@ -243,57 +239,104 @@
     <!-- /Page Header -->
     <!-- Page Body -->
     <div class="page-body">
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 col-xs-12">
-                <div class="widget flat radius-bordered">
-                    <div class="widget-header bordered-bottom bordered-themeprimary">
-                        <span class="widget-caption">管理员添加</span>
-                        <div class="widget-buttons">
-                            <a href="#" data-toggle="maximize">
-                                <i class="fa fa-expand"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="widget-body">
-                        <div id="horizontal-form">
-                        <validator name="addUserValidation">
-                            <form class="form-horizontal" role="form" novalidate>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">管理员角色</label>
-                                    <div class="col-sm-10">
-                                        <select id="e1" name="rid" class="input-label" v-model="user.rid">
-                                            <option value="0" />无角色
-                                            <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                                                <option value="<?php echo $vo['id']; ?>" /><?php echo $vo['name']; endforeach; endif; else: echo "" ;endif; ?>
-                                        </select>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-sky">
+                <span class="widget-caption">角色编辑</span>
+            </div>
+            <div class="widget-body">
+                <form method="POST" name="rule">
+                    <input type="hidden" name="ruleId" id="ruleId" value="<?php echo $role['id']; ?>">
+                    <table cellspacing="1" id="rs" class="table table-bordered table-hover">
+                        <tr>
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <span class="text">角色名称</span>
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">用户名</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" name="username" class="form-control input-label" id="input" placeholder="用户名" v-validate:username="{ required: true}" v-model="user.username">
+                            </td>
+                            <td>
+                                <input type="text" name="name" value="<?php echo $role['name']; ?>"  class="form-control input-label" id="roleName" placeholder="角色名称">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">密码</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control input-label" id="input" name="password" placeholder="密码" v-model="user.password" v-validate:password="{ required: true }">
-                                    <p class="help-block" v-if="msg" style="color: red;">{{msg}}</p>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <?php if($role->getData('status') == 1): ?>
+                                    <input type="checkbox" id="checkbox_fixednavbar" checked="checked">
+                                        <span class="text">是否启用</span>
+                                    <?php else: ?>
+                                    <input type="checkbox" id="checkbox_fixednavbar">
+                                        <span class="text">是否启用</span>
+                                    <?php endif; ?>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <tr class="r1">
+                            <td>
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo['id']; ?>" id="rules_<?php echo $vo['id']; ?>">
+                                            <span class="text"><?php echo $vo['title']; ?></span>
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button @click="addUser()" :disabled="$addUserValidation.invalid" type="button" class="btn btn-blue">保 存</button>
+                            </td>
+                            <td>
+                               <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo1): $mod = ($i % 2 );++$i;?>
+                                <div>
+                                    <div class="col-lg-12 col-sm-12 col-xs-12 r2" style="background:#ccc;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo1['id']; ?>" id="rules_<?php echo $vo1['id']; ?>">
+                                                <span class="text"><?php echo $vo1['title']; ?></span>
+                                            </label>
+                                        </div>
                                     </div>
+                                    <?php if(is_array($vo1->parent) || $vo1->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo1->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo2): $mod = ($i % 2 );++$i;?>
+                                    <div class="col-lg-2 col-sm-2 col-xs-2 r3">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="inverted" name="rules" value="<?php echo $vo2['id']; ?>" id="rules_<?php echo $vo2['id']; ?>">
+                                                <span class="text"><?php echo $vo2['title']; ?></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <div class="clearfix"></div>
                                 </div>
-                            </form>
-                            </validator>
-                        </div>
-                    </div>
-                </div>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="btn btn-default shiny">保 存</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
+</div>
+</div>
     <!-- /Page Body -->
 </div>
 
@@ -365,44 +408,66 @@
     </div> <!-- / .modal-dialog -->
 </div>
     
-    <script>
-        var vm = new Vue({
-          el: '#addUser',
-          data: {
-            user: {},
-            msg:''
-          },
-          init: function () {
-          },
-          methods: {
-            addUser: function () {
-                $.ajax({
-                    type: "POST",
-                    url: '<?php echo url("admin/user/add"); ?>',
-                    dataType: 'json',
-                    cache: false,
-                    data: this.user,
-                    success: function(data) {
-                        if(data.status>0){
-                            $('#modal-success').modal('show');
-                            $(".modal-body").html("添加成功");
-                            setTimeout(function(){
-                                window.location.href = '<?php echo url("Admin/user/index"); ?>';
-                            },3*1000);
-                        }else{
-                            vm.$set('msg',data.msg)
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr);
-                        console.log(status);
-                        console.log(error);
-                    }
-                });
+<script>
+$(function() {
+    $('.r1 td:nth-child(1) .inverted').on('click', function() {
+        if ($(this).prop('checked')) {
+            $(this).closest('td').siblings().find('.inverted').prop('checked', true);
+        } else {
+            $(this).closest('td').siblings().find('.inverted').prop('checked', false);
+        }
+    });
+    $('.r1 td:nth-child(2) .r2 .inverted').on('click', function() {
+        if($(this).prop('checked')){
+            $(this).closest('.r2').siblings('.r3').find('.inverted').prop('checked', true);
+        }else{
+            $(this).closest('.r2').siblings('.r3').find('.inverted').prop('checked', false);
+        }
+    });
+    var grant = '<?php echo $rule; ?>'.split(',');
+    for(var i=0;i<grant.length;i++){
+        $('#rules_'+grant[i]).prop('checked',true);
+    }
+    $("button[type='button']").on('click',function(){
+        var grant = [];
+        var params = {};
+        $('.inverted').each(function(){
+           if($(this).prop('checked'))grant.push($(this).val());
+        });
+        params.name = $('#roleName').val();
+        params.status = $('#checkbox_fixednavbar').is(':checked')==true?1:0;
+        params.id = $('#ruleId').val();
+        params.rules = grant;
+        $.ajax({
+            type: "POST",
+            url: '<?php echo url("admin/role/add"); ?>',
+            dataType: 'json',
+            cache: false,
+            data: params,
+            success: function(data) {
+                if(data.status>0){
+                    $('#modal-success').modal('show');
+                    $('#modal-success').find('.modal-body').html("编辑成功");
+                    setTimeout(function(){
+                        window.location.href = '<?php echo url("Admin/role/index"); ?>';
+                    },3*1000);
+                }else{
+                    $('#modal-danger').modal('show');
+                    $('#modal-danger').find('.modal-body').html(data.msg);
+                    setTimeout(function(){
+                        $('#modal-danger').modal('hide');
+                    },2*1000);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
             }
-          }
-        })
-    </script>
+        });
+    });
+})
+</script>
 
     <script>
     </script>

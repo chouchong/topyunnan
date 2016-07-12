@@ -41,16 +41,14 @@ class Rule extends Model
     {
         return ($islink === '') ? '' : '<i class="' . $islink . '"></i>';
     }
-
     /**
      * 获取排序
      * @author  chouchong
      */
     public function getSortAttr($sort, $data)
     {
-        return '<input type="text" value="' . $sort . '" class="sort"/>';
+        return '<span>' . $sort . '</span>';
     }
-
     /**
      * 获取用户组所有的权限
      * @author  chouchong
@@ -75,7 +73,7 @@ class Rule extends Model
         // 没有传role_id 获取登陆用户的用户组
         if ($roleId == 0) {
             if (Session::has('userInfo')) {
-                $roleId = Session::get("userInfo.rid");
+                $roleId = Session::get("userInfo.role_id");
             }
         }
         // 没有传auth地址获取当前
@@ -166,26 +164,21 @@ class Rule extends Model
     }
 
     /**
-     * [deleteRole description]
+     * 删除权限节点
      * @author  chouchong
      */
     public function deleteRule($id)
     {
         $ruleModel = $this->find($id);
         if ($ruleModel == false) {
-            $this->error = '权限不存在，或者已删除！';
             return false;
         }
-
         if ($ruleModel->parent()->count() > 0) {
-            $this->error = '权限下存在其他，不能删除！';
             return false;
         }
-
         return Db::transaction(function () use ($ruleModel) {
             // 先删除关联中间表的数据
             Db::table('role_rule')->where('rule_id', $ruleModel->id)->delete();
-
             $ruleModel->delete();
         });
     }
