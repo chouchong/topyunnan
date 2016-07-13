@@ -46,19 +46,18 @@ class Role extends Model
     public function addRole(array $data)
     {
         return Db::transaction(function () use ($data) {
-            $roleModel = new Role;
 
-            $roleId = $roleModel->save([
+            $roleId = $this->save([
                 'name'   => $data['name'],
                 'status' => $data['status']
             ]);
 
             if ($roleId === false) {
-                throw new PDOException($roleModel->getError());
+                throw new PDOException($this->getError());
             }
 
             if (isset($data['rules']) && is_array($data['rules']) && !empty($data['rules'])) {
-                $roleModel     = $roleModel->find($roleId);
+                $roleModel     = $this->find($roleId);
                 $data['rules'] = array_map('intval', $data['rules']);
                 //插入关联表
                 $roleModel->rule()->saveAll($data['rules']);
@@ -82,7 +81,7 @@ class Role extends Model
                 throw new PDOException($this->getError());
             }
             //先删除关联数据
-            Db::table('role_rule')->where(['role_id' => $data['id']])->delete();
+            db('role_rule')->where(['role_id' => $data['id']])->delete();
 
             if (isset($data['rules']) && is_array($data['rules']) && !empty($data['rules'])) {
                 $data['rules'] = array_map('intval', $data['rules']);
@@ -107,7 +106,7 @@ class Role extends Model
         }
         return Db::transaction(function () use ($roleModel) {
             // 先删除关联中间表的数据
-            \think\Db::table('role_rule')->where('role_id', $roleModel->id)->delete();
+            db('role_rule')->where('role_id', $roleModel->id)->delete();
             $roleModel->delete();
         });
     }

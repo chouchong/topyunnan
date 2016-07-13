@@ -1,8 +1,6 @@
 <?php
 namespace app\admin\controller;
 
-use \think\Loader;
-
 class User extends Base
 {
 	/**
@@ -11,9 +9,8 @@ class User extends Base
 	 */
 	public function index()
 	{
-		$lists = Loader::model('User')->paginate(10);
-		$this->assign('lists', $lists);
-		return view();
+		$lists = model('User')->paginate(10);
+		return view('',['lists'=>$lists]);
 	}
 	/**
 	 * 管理员列表
@@ -23,17 +20,15 @@ class User extends Base
 	{
 		if($this->request->isPOST())
 		{
-		 	$validate = Loader::validate('User');
-			$result = $validate->scene('add')->check(input('post.'));
+			$result = validate('User')->scene('add')->check(input('post.'));
 			if ($result !== true) {
-	            return ['status' => -1, 'msg' => $validate->getError()];
+	            return ['status' => -1, 'msg' => validate('User')->getError()];
 	        }
-	        $data = Loader::model('User')->authSave(input('post.'));
+	        $data = model('User')->authSave(input('post.'));
 			return $data;
 		}else{
-			$lists = Loader::model('Role')->select();
-			$this->assign('lists', $lists);
-			return view();
+			$lists = model('Role')->select();
+			return view('',['lists'=>$lists]);
 		}
 	}
 	/**
@@ -42,7 +37,7 @@ class User extends Base
 	 */
 	public function delete()
 	{
-		if(Loader::model('User')->where('id',input('post.id'))->delete()){
+		if(model('User')->where('id',input('post.id'))->delete()){
 			return ['status' => 1, 'msg' => '删除成功'];
 		}
 		return ['status' => -1, 'msg' => '删除失败'];

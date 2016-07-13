@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\auth\login.html";i:1468226949;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\auth\login.html";i:1468226949;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!--Head-->
@@ -19,7 +19,7 @@
 <link href="/assets/css/weather-icons.min.css" rel="stylesheet" />
 
 <!--Fonts-->
-<link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css">
+<!-- <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
 
 <!--Beyond styles-->
 <link id="beyond-link" href="/assets/css/beyond.min.css" rel="stylesheet" type="text/css" />
@@ -85,7 +85,7 @@
 <script src="/assets/js/charts/easypiechart/jquery.easypiechart.js"></script>
 <script src="/assets/js/charts/easypiechart/easypiechart-init.js"></script>
 
-<!--Flot Charts Needed Scripts-->
+<!-- Flot Charts Needed Scripts -->
 <script src="/assets/js/charts/flot/jquery.flot.js"></script>
 <script src="/assets/js/charts/flot/jquery.flot.resize.js"></script>
 <script src="/assets/js/charts/flot/jquery.flot.pie.js"></script>
@@ -95,7 +95,6 @@
 <!-- Vue -->
 <script src="/assets/vue/vue.js"></script>
 <script src="/assets/vue/vue-validator.js"></script>
-<script src="/assets/vue/vue-resource.min.js"></script>
     <!--Success Modal Templates-->
 <div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">

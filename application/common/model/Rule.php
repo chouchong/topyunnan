@@ -1,11 +1,8 @@
 <?php
 namespace app\common\model;
 
-use think\Config;
-use think\Db;
 use think\Model;
 use think\Request;
-use think\Session;
 
 class Rule extends Model
 {
@@ -55,7 +52,7 @@ class Rule extends Model
      */
     public function getRulesByRoleId($roleId)
     {
-        return Db::table('role_rule')
+        return db('role_rule')
             ->field('r.id,r.name,r.title')
             ->alias('rr')
             ->join('rule as r', 'rr.rule_id=r.id')
@@ -72,8 +69,8 @@ class Rule extends Model
     {
         // 没有传role_id 获取登陆用户的用户组
         if ($roleId == 0) {
-            if (Session::has('userInfo')) {
-                $roleId = Session::get("userInfo.role_id");
+            if (session('userInfo')) {
+                $roleId = session("userInfo.role_id");
             }
         }
         // 没有传auth地址获取当前
@@ -83,7 +80,7 @@ class Rule extends Model
             // $name = CONTROLLER_NAME . "/" . ACTION_NAME;
         }
 
-        $rule = Db::table('role_rule')
+        $rule = db('role_rule')
             ->alias('rr')
             ->join('rule as r', 'rr.rule_id=r.id')
             ->where('rr.role_id', $roleId)
@@ -103,7 +100,7 @@ class Rule extends Model
      */
     public function getMenusByRoleId($roleId)
     {
-        $ruleRows = Db::table('role_rule')
+        $ruleRows = db('role_rule')
             ->field('r.id, r.parent_id,r.name,r.title,r.icon')
             ->alias('rr')
             ->join('rule as r', 'rr.rule_id=r.id')
@@ -178,7 +175,7 @@ class Rule extends Model
         }
         return Db::transaction(function () use ($ruleModel) {
             // 先删除关联中间表的数据
-            Db::table('role_rule')->where('rule_id', $ruleModel->id)->delete();
+            db('role_rule')->where('rule_id', $ruleModel->id)->delete();
             $ruleModel->delete();
         });
     }

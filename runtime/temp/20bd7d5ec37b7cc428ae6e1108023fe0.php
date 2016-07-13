@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:75:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\index\index.html";i:1468203746;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468227648;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468204739;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468203746;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:75:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\index\index.html";i:1468203746;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,7 +19,7 @@
 <link href="/assets/css/weather-icons.min.css" rel="stylesheet" />
 
 <!--Fonts-->
-<link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css">
+<!-- <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
 
 <!--Beyond styles-->
 <link id="beyond-link" href="/assets/css/beyond.min.css" rel="stylesheet" type="text/css" />
@@ -172,7 +172,7 @@
     <ul class="nav sidebar-menu">
         <!--Dashboard-->
         <?php if(is_array($navBar) || $navBar instanceof \think\Collection): $i = 0; $__LIST__ = $navBar;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-        <li <?php if($pid == $vo['id']): ?>class="open"<?php endif; if($uri == $vo['name']): ?>class="active"<?php endif; ?>>
+        <li <?php if($pid2 == $vo['id']||$pid1 == $vo['id']): ?>class="open"<?php endif; if($uri == $vo['name']): ?>class="active"<?php endif; ?>>
             <a href='<?php if(!empty($vo["name"])): ?><?php echo url($vo["name"]); else: ?>#<?php endif; ?>' class="menu-dropdown">
                 <i class="menu-icon <?php echo $vo['icon']; ?>"></i>
                 <span class="menu-text"><?php echo $vo['title']; ?> </span>
@@ -181,7 +181,7 @@
             <?php if(isset($vo['sub']) && !empty($vo['sub'])): ?>
             <ul class="submenu">
                 <?php if(is_array($vo['sub']) || $vo['sub'] instanceof \think\Collection): $i = 0; $__LIST__ = $vo['sub'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
-                <li <?php if($uri == $v['name']): ?>class="active"<?php endif; ?>>
+                <li <?php if($uri == $v['name']||$pid1 == $v['id']): ?>class="active"<?php endif; ?>>
                     <a href="<?php echo url($v['name']); ?>">
                         <i class="menu-icon <?php echo $v['icon']; ?>"></i>
                         <span class="menu-text"> <?php echo $v['title']; ?> </span>
@@ -1101,7 +1101,7 @@
 <script src="/assets/js/charts/easypiechart/jquery.easypiechart.js"></script>
 <script src="/assets/js/charts/easypiechart/easypiechart-init.js"></script>
 
-<!--Flot Charts Needed Scripts-->
+<!-- Flot Charts Needed Scripts -->
 <script src="/assets/js/charts/flot/jquery.flot.js"></script>
 <script src="/assets/js/charts/flot/jquery.flot.resize.js"></script>
 <script src="/assets/js/charts/flot/jquery.flot.pie.js"></script>
@@ -1111,7 +1111,6 @@
 <!-- Vue -->
 <script src="/assets/vue/vue.js"></script>
 <script src="/assets/vue/vue-validator.js"></script>
-<script src="/assets/vue/vue-resource.min.js"></script>
     <!--Success Modal Templates-->
 <div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">

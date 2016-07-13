@@ -1,7 +1,7 @@
 {extend name="base:base" /}
 
 {block name="content"}
-<div class="page-content">
+<div class="page-content" id="addRole">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
@@ -49,7 +49,8 @@
                 <span class="widget-caption">角色添加</span>
             </div>
             <div class="widget-body">
-                <form method="POST" name="rule">
+                <validator name="addRoleValidation">
+                <form class="form-horizontal" role="form" novalidate>
                     <table cellspacing="1" id="rs" class="table table-bordered table-hover">
                         <tr>
                             <td>
@@ -62,7 +63,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="text" name="name"  class="form-control input-label" id="roleName" placeholder="角色名称">
+                                <input type="text" name="rolename"  class="form-control input-label" id="roleName" placeholder="角色名称" v-validate:rolename="{ required: true}" v-model="role.name">
                             </td>
                         </tr>
                         <tr>
@@ -77,7 +78,7 @@
                             <td>
                                 <div class="checkbox">
                                     <label>
-                                    <input type="checkbox" id="checkbox_fixednavbar">
+                                    <input v-model="role.status" type="checkbox" id="checkbox_fixednavbar">
                                         <span class="text">是否启用</span>
                                     </label>
                                 </div>
@@ -124,11 +125,12 @@
                         {/volist}
                         <tr>
                             <td colspan="2">
-                                <button type="button" class="btn btn-default shiny">保 存</button>
+                                <button @click="addRole()" :disabled="$addRoleValidation.invalid" type="button" class="btn btn-blue">保 存</button>
                             </td>
                         </tr>
                     </table>
                 </form>
+            </validator>
             </div>
         </div>
     </div>
@@ -154,43 +156,49 @@ $(function() {
             $(this).closest('.r2').siblings('.r3').find('.inverted').prop('checked', false);
         }
     });
-    $("button[type='button']").on('click',function(){
-        var grant = [];
-        var params = {};
-        $('.inverted').each(function(){
-           if($(this).prop('checked'))grant.push($(this).val());
-        });
-        params.name = $('#roleName').val();
-        params.status = $('#checkbox_fixednavbar').is(':checked')==true?1:0;
-        params.rules = grant;
-        $.ajax({
-            type: "POST",
-            url: '{:url("admin/role/add")}',
-            dataType: 'json',
-            cache: false,
-            data: params,
-            success: function(data) {
-                if(data.status>0){
-                    $('#modal-success').modal('show');
-                    $('#modal-success').find('.modal-body').html("添加成功");
-                    setTimeout(function(){
-                        window.location.href = '{:url("Admin/role/index")}';
-                    },3*1000);
-                }else{
-                    $('#modal-danger').modal('show');
-                    $('#modal-danger').find('.modal-body').html(data.msg);
-                    setTimeout(function(){
-                        $('#modal-danger').modal('hide');
-                    },2*1000);
+})
+new Vue({
+    el: '#addRole',
+    data: {
+        role: {}
+    },
+    methods: {
+        addRole: function () {
+            let grant = [];
+            $('.inverted').each(function(){
+               if($(this).prop('checked'))grant.push($(this).val());
+            });
+            this.role.status=this.role.status?1:0;
+            this.role.rules = grant;
+            $.ajax({
+                type: "POST",
+                url: '{:url("admin/role/add")}',
+                dataType: 'json',
+                cache: false,
+                data: this.role,
+                success: function(data) {
+                    if(data.status>0){
+                        $('#modal-success').modal('show');
+                        $('#modal-success').find('.modal-body').html("添加成功");
+                        setTimeout(function(){
+                            window.location.href = '{:url("Admin/role/index")}';
+                        },3*1000);
+                    }else{
+                        $('#modal-danger').modal('show');
+                        $('#modal-danger').find('.modal-body').html(data.msg);
+                        setTimeout(function(){
+                            $('#modal-danger').modal('hide');
+                        },2*1000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-            }
-        });
-    });
+            });
+        }
+    }
 })
 </script>
 {/block}

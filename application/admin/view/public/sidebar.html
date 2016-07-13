@@ -10,7 +10,7 @@
     <ul class="nav sidebar-menu">
         <!--Dashboard-->
         {volist name="navBar" id="vo"}
-        <li {if $pid == $vo['id']}class="open"{/if}{if $uri == $vo['name']}class="active"{/if}>
+        <li {if $pid2 == $vo['id']||$pid1 == $vo['id']}class="open"{/if}{if $uri == $vo['name']}class="active"{/if}>
             <a href='{if !empty($vo["name"])}{:url($vo["name"])}{else}#{/if}' class="menu-dropdown">
                 <i class="menu-icon {$vo['icon']}"></i>
                 <span class="menu-text">{$vo['title']} </span>
@@ -19,7 +19,7 @@
             {if condition="isset($vo['sub']) && !empty($vo['sub'])"}
             <ul class="submenu">
                 {volist name="vo['sub']" id="v"}
-                <li {if $uri == $v['name']}class="active"{/if}>
+                <li {if $uri == $v['name']||$pid1 == $v['id']}class="active"{/if}>
                     <a href="{:url($v['name'])}">
                         <i class="menu-icon {$v.icon}"></i>
                         <span class="menu-text"> {$v['title']} </span>

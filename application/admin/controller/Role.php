@@ -13,9 +13,8 @@ class Role extends Base
 	 */
 	public function index()
 	{
-		$lists = Loader::model('Role')->paginate(5);
-		$this->assign('lists', $lists);
-		return view();
+		$lists = model('Role')->paginate(5);
+		return view('',['lists'=>$lists]);
 	}
 	/**
 	 * 角色添加
@@ -25,27 +24,26 @@ class Role extends Base
 	{
 		if($this->request->isPOST()){
 			$data = input('post.');
-            if (loader::validate('Role')->scene('add')->check($data) === false) {
-                return ['status'=>-1,'msg'=>loader::validate('Role')->getError()];
+            if (validate('Role')->scene('add')->check($data) === false) {
+                return ['status'=>-1,'msg'=>validate('Role')->getError()];
             }
             // 编辑时的添加
             if(input('post.id')>0){
-            	$roleRow = Loader::model('Role')->find(input('post.id'));
+            	$roleRow = model('Role')->find(input('post.id'));
             	if ($roleRow->editRole($data) !== false) {
             		return ['status'=>1];
             	}
             // 直接添加
             }else{
-	            if (Loader::model('Role')->addRole($data) !== false) {
+	            if (model('Role')->addRole($data) !== false) {
 	                return ['status'=>1];
 	            }
             }
-            return ['status'=>-2,Loader::model('Role')->getError()];
+            return ['status'=>-2,model('Role')->getError()];
 		}
-		$ruleModel = Loader::model('Rule');
+		$ruleModel = model('Rule');
         $lists = $ruleModel->where('parent_id', 0)->order('sort', 'asc')->select();
-        $this->assign('lists', $lists);
-		return view();
+		return view('',['lists'=>$lists]);
 	}
 	/**
 	 * 编辑添加
@@ -53,12 +51,11 @@ class Role extends Base
 	 */
 	public function edit()
 	{
-		$ruleModel = Loader::model('Rule');
-		$this->assign('role', Loader::model('Role')->find(input('param.id')));
-	    $this->assign('rule', implode(',',array_column($ruleModel->getRulesByRoleId(input('param.id')), 'id')));
-        $lists = $ruleModel->where('parent_id', 0)->order('sort', 'asc')->select();
-        $this->assign('lists', $lists);
-		return view();
+		return view('',[
+			'role'=>model('Role')->find(input('param.id')),
+			'rule'=>implode(',',array_column(model('Rule')->getRulesByRoleId(input('param.id')), 'id')),
+			'lists'=>model('Rule')->where('parent_id', 0)->order('sort', 'asc')->select()
+			]);
 	}
 	/**
 	 * 角色删除
@@ -66,7 +63,7 @@ class Role extends Base
 	 */
 	public function delete()
 	{
-		if(Loader::model('Role')->deleteRole(input('post.id')) === false){
+		if(model('Role')->deleteRole(input('post.id')) === false){
 			return ['status' => -1, 'msg' => '删除失败'];
 		}
 		return ['status' => 1, 'msg' => '删除成功'];

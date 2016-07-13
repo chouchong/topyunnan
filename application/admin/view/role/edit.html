@@ -49,7 +49,8 @@
                 <span class="widget-caption">角色编辑</span>
             </div>
             <div class="widget-body">
-                <form method="POST" name="rule">
+                <validator name="addRoleValidation">
+                <form class="form-horizontal" role="form" novalidate>
                     <input type="hidden" name="ruleId" id="ruleId" value="{$role.id}">
                     <table cellspacing="1" id="rs" class="table table-bordered table-hover">
                         <tr>
@@ -130,11 +131,12 @@
                         {/volist}
                         <tr>
                             <td colspan="2">
-                                <button type="button" class="btn btn-default shiny">保 存</button>
+                                <button type="button" class="btn btn-blue">保 存</button>
                             </td>
                         </tr>
                     </table>
                 </form>
+                </validator>
             </div>
         </div>
     </div>

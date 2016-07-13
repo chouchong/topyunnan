@@ -1,8 +1,6 @@
 <?php
 namespace app\admin\controller;
 
-use \think\Loader;
-
 class Rule extends Base
 {
 
@@ -12,10 +10,8 @@ class Rule extends Base
 	 */
 	public function index()
 	{
-		$ruleModel = Loader::model('Rule');
-        $lists = $ruleModel->where('parent_id', 0)->order('sort', 'asc')->paginate(5);
-        $this->assign('lists', $lists);
-		return view();
+        $lists = model('Rule')->where('parent_id', 0)->order('sort', 'asc')->paginate(5);
+		return view('',['lists'=>$lists]);
 	}
 	/**
 	 * 权限节点添加
@@ -23,14 +19,13 @@ class Rule extends Base
 	 */
 	public function add()
 	{
-		$ruleModel = Loader::model('Rule');
+		$ruleModel = model('Rule');
 		if($this->request->isAjax()){
 			if(input('post.id')>0){
 				if ($ruleModel->save(input('post.'),['id'=>input('post.id')]) != false) {
 	                return ['status' => 1];
 	            }
-			}
-			else{
+			}else{
             	$ruleId = $ruleModel->validate(true)->save(input('post.'));
 				if ($ruleId > 0) {
 					return ['status' => $ruleId];
@@ -38,8 +33,7 @@ class Rule extends Base
             }
             return ['status' => -1, 'msg' => $ruleModel->getError()];
 		}
-        $this->assign('ruleRows', $ruleModel->getMenusByParentId(0));
-		return view();
+		return view('',['ruleRows'=>$ruleModel->getMenusByParentId(0)]);
 	}
 	/**
 	 * 权限节点修改
@@ -47,9 +41,10 @@ class Rule extends Base
 	 */
 	public function edit()
 	{
-		$this->assign('rule',Loader::model('Rule')->find(input('param.id')));
-		$this->assign('ruleRows', Loader::model('Rule')->getMenusByParentId(0));
-        return view();
+		$ruleModel = model('Rule');
+        return view('',[
+        	'rule'=>$ruleModel->find(input('param.id')),
+        	'ruleRows'=>$ruleModel->getMenusByParentId(0)]);
 	}
 	/**
 	 * 权限节点删除
@@ -58,7 +53,7 @@ class Rule extends Base
 	public function delete()
 	{
 
-        if (Loader::model('Rule')->deleteRule(input('post.id')) === false) {
+        if (model('Rule')->deleteRule(input('post.id')) === false) {
             return ['status' => -1, 'msg' => '删除失败'];
 		}
 		return ['status' => 1, 'msg' => '删除成功'];

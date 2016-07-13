@@ -16,9 +16,9 @@
                 <a href="#">控制面板</a>
             </li>
             <li>
-                <a href="#">权限管理</a>
+                <a href="#">系统管理</a>
             </li>
-            <li class="active">节点添加</li>
+            <li class="active">商城信息</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -26,7 +26,7 @@
     <div class="page-header position-relative">
         <div class="header-title">
             <h1>
-                节点添加
+                商城信息
             </h1>
         </div>
         <!--Header Buttons-->
@@ -50,7 +50,7 @@
             <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="widget flat radius-bordered">
                     <div class="widget-header bordered-bottom bordered-themeprimary">
-                        <span class="widget-caption">权限节点</span>
+                        <span class="widget-caption">商城信息</span>
                         <div class="widget-buttons">
                             <a href="#" data-toggle="maximize">
                                 <i class="fa fa-expand"></i>
@@ -66,12 +66,6 @@
                                     <div class="col-sm-10">
                                         <select id="e1" name="parent_id" class="input-label" v-model="rule.parent_id">
                                             <option value="0" />上级菜单
-                                            {volist name="$ruleRows" id="vo"}
-                                                <option value="{$vo.id}" />{$vo.title}
-                                            {volist name="$vo->parent" id="v"}
-                                                <option value="{$v.id}"/>------{$v.title}
-                                            {/volist}
-                                            {/volist}
                                         </select>
                                     </div>
                                 </div>

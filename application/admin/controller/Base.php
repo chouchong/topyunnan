@@ -3,10 +3,6 @@ namespace app\admin\controller;
 
 use \think\Config;
 use \think\Controller;
-use \think\Db;
-use \think\Request;
-use \think\Session;
-use \think\Loader;
 
 class Base extends Controller
 {
@@ -23,18 +19,18 @@ class Base extends Controller
 		$action = $this->request->action();
 
 		$activeRouter = $module.'/'.$controller.'/'.$action;
-		$resource = Db::name('rule')->field('id,name,title,parent_id')->where('name',$activeRouter)->find();
+		$this->getIsBar($activeRouter);
 		$this->assign('uri', $activeRouter);
-		$this->assign('pid', $resource['parent_id']);
 		$this->assign('userInfo', session('userInfo.username'));
 		$this->getBreadcrumb();
+		$this->getAuth();
 	}
 
 	/**
 	 * 判断用户登录
 	 * @author chouchong
 	 */
-	public function isUser()
+	protected function isUser()
 	{
 		if(session('userInfo.id') == null){
 			$this->redirect(url('/login'));
@@ -46,7 +42,27 @@ class Base extends Controller
      */
     protected function getBreadcrumb()
     {
-        $ruleData = Loader::model('Rule')->getMenusByRoleId(session('userInfo.role_id'));
+        $ruleData = model('Rule')->getMenusByRoleId(session('userInfo.role_id'));
         $this->assign('navBar', $ruleData);
+    }
+    /**
+     * 获取用户的权限
+     * @author chouchong
+     */
+    protected function getAuth()
+    {
+        $rule = array_column(model('Rule')->getRulesByRoleId(session('userInfo.role_id')), 'id');
+        $this->assign('auth', $rule);
+    }
+    /**
+     * 获取菜单
+     * @author chouchong
+     */
+    protected function getIsBar($activeRouter)
+    {
+    	$pid1 = db('rule')->field('id,name,title,parent_id')->where('name',$activeRouter)->find();
+		$pid2 = db('rule')->field('id,name,title,parent_id')->where('id',$pid1['parent_id'])->find();
+		$this->assign('pid1', $pid1['parent_id']);
+		$this->assign('pid2', $pid2['parent_id']);
     }
 }

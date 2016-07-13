@@ -12,6 +12,14 @@ class User extends Model
 	protected $auto = ['update_time','status'];
 	protected $insert = ['create_time','reg_ip','password'];
 
+	/**
+	 * 管理员与角色关系
+	 */
+	public function role()
+    {
+        return $this->belongsTo('Role','role_id');
+    }
+
 	// 获取IP
 	protected function setRegIpAttr(){
 		return get_client_ip();
@@ -81,11 +89,4 @@ class User extends Model
 		);
 		$this->update($data);
 	}
-	/**
-	 * 管理员与角色关系
-	 */
-	public function role()
-    {
-        return $this->belongsTo('Role','role_id');
-    }
 }
