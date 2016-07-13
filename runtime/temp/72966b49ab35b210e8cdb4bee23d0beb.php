@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\mall\index.html";i:1468394419;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468203746;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\mall\index.html";i:1468401795;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468396422;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -144,9 +144,7 @@
                         cache: false,
                         success: function(data) {
                             if(data.status>0){
-                                window.location.href = '/login.html';
-                            }else{
-
+                                window.location.href = '/admin/login.html';
                             }
                         },
                         error: function(xhr, status, error) {
@@ -258,51 +256,24 @@
                         <div id="horizontal-form">
                         <validator name="addRuthValidation">
                             <form class="form-horizontal" role="form" novalidate>
+                                <?php if(is_array($configs) || $configs instanceof \think\Collection): $i = 0; $__LIST__ = $configs;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                 <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">上级菜单</label>
+                                    <label for="input" class="col-sm-2 control-label no-padding-right"><?php echo $vo['name']; ?></label>
                                     <div class="col-sm-10">
-                                        <select id="e1" name="parent_id" class="input-label" v-model="rule.parent_id">
-                                            <option value="0" />上级菜单
-                                        </select>
+                                        <?php if($vo['type'] == 'text'): ?>
+                                        <input type="text" class="form-control input-label" id="input" name='<?php echo $vo['name']; ?>' value="<?php echo $vo['content']; ?>">
+                                        <?php endif; if($vo['type'] == 'textarea'): ?>
+                                        <textarea class="form-control input-label" placeholder="Content" style='height:100px;'><?php echo $vo['content']; ?></textarea>
+                                        <?php endif; if($vo['type'] == 'upload'): ?>
+                                        <img src="<?php echo (isset($vo['content']) && ($vo['content'] !== '')?$vo['content']:'/static/load.jpg'); ?>" style="max-width:100px; max-height:100px;"  id="head"  class="img-circle upload">
+                                        <input type="hidden" name="<?php echo $vo['name']; ?>" value="<?php echo $vo['content']; ?>" />
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单名称</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" name="title" class="form-control input-label" id="input" placeholder="菜单名称" v-validate:title="{ required: true}" v-model="rule.title">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单链接</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-label" id="input" name="name" placeholder="菜单链接" v-model="rule.name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">ICON图标</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-label" id="input" name="icon" placeholder="ICON图标" v-model="rule.icon">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="input" class="col-sm-2 control-label no-padding-right">菜单排序</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-label" id="input" name="sort" placeholder="菜单排序" v-validate:sort="{ required: true, minlength: 0, maxlength: 3}" v-model="rule.sort">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="input" class="col-sm-2 control-label no-padding-right">是否菜单链接</label>
-                                    <div class="col-sm-10 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="islink" v-model="rule.islink">
-                                            <span class="text">是否菜单链接</span>
-                                        </label>
-                                        <p class="help-block" v-if="msg" style="color: red;">{{msg}}</p>
-                                    </div>
-                                </div>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button @click="addRule()" :disabled="$addRuthValidation.invalid" type="button" class="btn btn-blue">保 存</button>
+                                        <button @click="addRule()" :disabled="$addRuthValidation.invalid" type="button" class="btn btn-azure">保 存</button>
                                     </div>
                                 </div>
                             </form>

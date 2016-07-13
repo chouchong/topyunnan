@@ -28,3 +28,7 @@ git push -u origin master
 git add .
 git commit -m "mall信息"
 git push -u origin master
+
+git add .
+git commit -m "mall信息1"
+git push -u origin master

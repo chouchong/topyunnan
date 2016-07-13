@@ -1,9 +1,6 @@
 <?php
 namespace app\admin\controller;
 
-use \think\Loader;
-use \think\Url;
-
 class Mall extends Base
 {
 
@@ -13,6 +10,6 @@ class Mall extends Base
 	 */
 	public function index()
 	{
-		return view();
+		return view('',['configs'=>model('Configs')->getConfigs()]);
 	}
 }

@@ -33,7 +33,7 @@ class Base extends Controller
 	protected function isUser()
 	{
 		if(session('userInfo.id') == null){
-			$this->redirect(url('/login'));
+			$this->redirect(url('/admin/login'));
 		}
 	}
 	/**

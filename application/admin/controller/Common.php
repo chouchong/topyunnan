@@ -1,7 +1,6 @@
 <?php
 namespace app\admin\controller;
 
-use \think\Loader;
 use \think\Request;
 use \think\Session;
 use \think\Config;
@@ -22,12 +21,12 @@ class Common
 		 		'username' => input('post.usernamelogin'),
 		 		'password' => input('post.password'),
 		 		);
-		 	$validate = Loader::validate('User');
+		 	$validate = validate('User');
 			$result = $validate->scene('login')->check($user);
 			if ($result !== true) {
 	            return ['status' => -1, 'msg' => $validate->getError()];
 	        }
-	        $data = Loader::model('User')->login($user);
+	        $data = model('User')->login($user);
 			return $data;
 		}else{
 			return view('auth/login');
