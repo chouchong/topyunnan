@@ -70,6 +70,7 @@
                         <table class="table table-striped table-hover table-bordered" id="editabledatatable">
                             <thead>
                                 <tr class="active">
+                                    <th>编号</th>
                                     <th>菜单名称</th>
                                     <th>链接</th>
                                     <th>ICON</th>
@@ -81,6 +82,7 @@
                             <tbody>
                             {volist name="$lists" id="vo"}
                             <tr class="success">
+                                <td>{$vo.id}</td>
                                 <td class="text-left">
                                 {$vo.title}
                                 </td>
@@ -101,6 +103,7 @@
                                 </tr>
                                 {volist name="$vo->parent" id="v"}
                                     <tr class="active">
+                                        <td>{$v.id}</td>
                                         <td class="text-left">
                                         &nbsp;&nbsp;┗━
                                         {$v.title}
@@ -122,6 +125,7 @@
                                     </tr>
                                     {volist name="$v->parent" id="ss"}
                                     <tr {if condition="$ss['parent_id'] eq 0"} class="success" {/if}>
+                                        <td>{$ss.id}</td>
                                         <td class="text-left">
                                         &nbsp;&nbsp; &nbsp;&nbsp;┗━━
                                         {$ss.title}

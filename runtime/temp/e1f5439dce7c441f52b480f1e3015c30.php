@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468382748;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468396422;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\rule\index.html";i:1468462112;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468396422;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -265,6 +265,7 @@
                         <table class="table table-striped table-hover table-bordered" id="editabledatatable">
                             <thead>
                                 <tr class="active">
+                                    <th>编号</th>
                                     <th>菜单名称</th>
                                     <th>链接</th>
                                     <th>ICON</th>
@@ -276,6 +277,7 @@
                             <tbody>
                             <?php if(is_array($lists) || $lists instanceof \think\Collection): $i = 0; $__LIST__ = $lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                             <tr class="success">
+                                <td><?php echo $vo['id']; ?></td>
                                 <td class="text-left">
                                 <?php echo $vo['title']; ?>
                                 </td>
@@ -295,6 +297,7 @@
                                 </tr>
                                 <?php if(is_array($vo->parent) || $vo->parent instanceof \think\Collection): $i = 0; $__LIST__ = $vo->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?>
                                     <tr class="active">
+                                        <td><?php echo $v['id']; ?></td>
                                         <td class="text-left">
                                         &nbsp;&nbsp;┗━
                                         <?php echo $v['title']; ?>
@@ -315,6 +318,7 @@
                                     </tr>
                                     <?php if(is_array($v->parent) || $v->parent instanceof \think\Collection): $i = 0; $__LIST__ = $v->parent;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ss): $mod = ($i % 2 );++$i;?>
                                     <tr <?php if($ss['parent_id'] == 0): ?> class="success" <?php endif; ?>>
+                                        <td><?php echo $ss['id']; ?></td>
                                         <td class="text-left">
                                         &nbsp;&nbsp; &nbsp;&nbsp;┗━━
                                         <?php echo $ss['title']; ?>
