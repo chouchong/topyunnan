@@ -20,7 +20,7 @@ class Rule extends Base
 	public function add()
 	{
 		$ruleModel = model('Rule');
-		if($this->request->isAjax()){
+		if($this->request->isPOST()){
 			if(input('post.id')>0){
 				if ($ruleModel->save(input('post.'),['id'=>input('post.id')]) != false) {
 	                return ['status' => 1];

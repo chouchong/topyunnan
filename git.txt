@@ -36,3 +36,7 @@ git push -u origin master
 git add .
 git commit -m "mall信息2"
 git push -u origin master
+
+git add .
+git commit -m "文章发布-周志红"
+git push -u origin master

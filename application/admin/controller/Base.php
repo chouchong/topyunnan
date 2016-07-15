@@ -10,6 +10,7 @@ class Base extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		defined('STATIC_PATH') or define('STATIC_PATH', dirname(ROOT_PATH) . DS . 'static');
 
 		Config::set('default_return_type','json');
 		$this->isUser();
