@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\auth\login.html";i:1468396491;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\auth\login.html";i:1468809722;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468808902;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;}*/ ?>
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!--Head-->
@@ -95,6 +95,9 @@
 <!-- Vue -->
 <script src="/assets/vue/vue.js"></script>
 <script src="/assets/vue/vue-validator.js"></script>
+
+<!-- alert -->
+<script src="/assets/alert.js"></script>
     <!--Success Modal Templates-->
 <div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
@@ -130,11 +133,7 @@
                     data: this.user,
                     success: function(data) {
                         if(data.status>0){
-                            $('#modal-success').modal('show');
-                            $(".modal-body").html("登陆成功");
-                            setTimeout(function(){
-                                window.location.href = '/Admin/Index/index'
-                            },3*1000);
+                            success({msg:"登陆成功",url:"<?php echo url('Admin/Index/index'); ?>"});
                         }else{
                             vm.$set('msg',data.msg)
                         }

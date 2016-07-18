@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\index.html";i:1468382931;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468396422;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468380620;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\role\index.html";i:1468810000;s:73:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\base\base.html";i:1468380670;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\style.html";i:1468380567;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\loading.html";i:1468203746;s:74:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\nav.html";i:1468396422;s:78:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\sidebar.html";i:1468377891;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\script.html";i:1468808902;s:76:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\modal.html";i:1468203746;s:77:"D:\phpStudy\WWW\topyunnan\public/../application/admin\view\public\danger.html";i:1468227114;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -335,6 +335,9 @@
 <!-- Vue -->
 <script src="/assets/vue/vue.js"></script>
 <script src="/assets/vue/vue-validator.js"></script>
+
+<!-- alert -->
+<script src="/assets/alert.js"></script>
     <!--Success Modal Templates-->
 <div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
@@ -381,17 +384,9 @@
                         data:{id:id},
                         success: function(data) {
                             if(data.status>0){
-                                $('#modal-success').modal('show');
-                                $('#modal-success').find('.modal-body').html("删除成功");
-                                setTimeout(function(){
-                                    location.reload();
-                                },2*1000);
+                                success({msg:"删除成功",url:""});
                             }else{
-                                $('#modal-danger').modal('show');
-                                $('#modal-danger').find('.modal-body').html("删除失败");
-                                setTimeout(function(){
-                                    $('#modal-danger').modal('hide');
-                                },2*1000);
+                                error({msg:'删除失败'});
                             }
                         },
                         error: function(xhr, status, error) {

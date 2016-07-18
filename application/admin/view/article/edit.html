@@ -151,17 +151,9 @@
                     success: function(data) {
                         console.log(data);
                         if(data.status>0){
-                            $('#modal-success').modal('show');
-                            $(".modal-body").html("添加成功");
-                            setTimeout(function(){
-                                window.location.href = '{:url("Admin/article/index")}';
-                            },3*1000);
+                            success({msg:"添加成功",url:'{:url("Admin/article/index")}'});
                         }else{
-                            $('#modal-danger').modal('show');
-                            $('#modal-danger').find('.modal-body').html(data.msg);
-                            setTimeout(function(){
-                                $('#modal-danger').modal('hide');
-                            },2*1000);
+                            error({msg:data.msg});
                         }
                     },
                     error: function(xhr, status, error) {
