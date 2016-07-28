@@ -44,3 +44,7 @@ git push -u origin master
 git add .
 git commit -m "cms基本功能完成"
 git push -u origin master
+
+git add .
+git commit -m "js"
+git push -u origin master

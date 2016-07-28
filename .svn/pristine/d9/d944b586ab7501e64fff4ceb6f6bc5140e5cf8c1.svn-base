@@ -1,0 +1,5 @@
+$(document).ready(function() {
+    if (typeof $.fn.luffyuploadpic !== 'undefined') {
+        $("img.upload").luffyuploadpic();
+    }
+});

@@ -1,0 +1,46 @@
+echo "# topyunnan" >> README.md
+git init
+git add .
+git commit -m "第一天"
+git remote add origin https://github.com/chouchong/topyunnan.git
+git push -u origin master
+
+git add .
+git commit -m "第一天1"
+git push -u origin master
+
+git add .
+git commit -m "第一天2"
+git push -u origin master
+
+git add .
+git commit -m "第一天3"
+git push -u origin master
+
+git add .
+git commit -m "权限第一天1"
+git push -u origin master
+
+git add .
+git commit -m "权限第一天2"
+git push -u origin master
+
+git add .
+git commit -m "mall信息"
+git push -u origin master
+
+git add .
+git commit -m "mall信息1"
+git push -u origin master
+
+git add .
+git commit -m "mall信息2"
+git push -u origin master
+
+git add .
+git commit -m "文章发布-周志红"
+git push -u origin master
+
+git add .
+git commit -m "cms基本功能完成"
+git push -u origin master
